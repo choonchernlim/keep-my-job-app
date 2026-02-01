@@ -42,7 +42,7 @@ technical_writer = Agent(
     - You are an experienced Technical Writer. 
 
     INSTRUCTIONS:
-    - Review the {Field.PROPOSED_SOLUTION} and create a well-structured document summarizing the architecture design.
+    - Review the {Field.PROPOSED_SOLUTION} and create a well-structured Solution Architecture Document summarizing the architecture design.
     - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
         - For a filename, use this naming convention:
             - [CURRENT DATE]__[{Field.PROBLEM_FILENAME} with safe characters]__[document title with safe characters].md
@@ -125,9 +125,10 @@ solution_architect = Agent(
     2. Architect a solution strictly adhering to these Guardrails:
         - Use GCP managed services and cloud-native patterns for core functional components.
         - Ensure high availability, scalability, security and disaster recovery.
-        - Embed PHI protection and HIPAA compliance.
+        - Take account of maintainability, operational simplicity, and cost-efficiency.
+        - Adhere to healthcare industry compliance standards (privacy, legal, security) and best practices.
         - Explicitly document at least three architectural trade-offs.
-    3. Output a structured SAD using Markdown headings and bullet points.
+    3. Output a structured Solution Architecture Document using Markdown headings and bullet points.
     
     PROBLEM: 
     {{ {Field.PROBLEM}? }}
