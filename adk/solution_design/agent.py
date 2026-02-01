@@ -12,7 +12,7 @@ from google.genai import types
 
 # cloud_logging_client = google.cloud.logging.Client()
 # cloud_logging_client.setup_logging()
-from .tools import append_to_state_tool, load_problem_into_state_tool, save_as_artifact_tool
+from .tools import append_to_state_tool, load_data_into_state_tool, save_as_artifact_tool
 
 # import google.cloud.logging
 # from langchain_community.tools import WikipediaQueryRun
@@ -27,7 +27,7 @@ print(model_name)
 
 
 class Field(StrEnum):
-    PROBLEM_NUMBER = "PROBLEM_NUMBER"
+    PROBLEM_FILENAME = "PROBLEM_FILENAME"
     PROBLEM = "PROBLEM"
     PROPOSED_SOLUTION = "PROPOSED_SOLUTION"
     CRITICAL_FEEDBACK = "CRITICAL_FEEDBACK"
@@ -45,8 +45,8 @@ technical_writer = Agent(
     - Review the {Field.PROPOSED_SOLUTION} and create a well-structured document summarizing the architecture design.
     - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
         - For a filename, use this naming convention:
-            - [CURRENT DATE]__[{Field.PROBLEM_NUMBER}]__[document title with safe characters].md
-            - Example: 2026-01-01__2__patient-data-pipeline.md
+            - [CURRENT DATE]__[{Field.PROBLEM_FILENAME} with safe characters]__[document title with safe characters].md
+            - Example: 2026-01-01__filename-txt__patient-data-pipeline.md
         - Write to the 'proposed_solutions' directory.
 
     PROPOSED_SOLUTION:
@@ -191,16 +191,16 @@ root_agent = Agent(
     You are a helpful engineering solution coordinator.
 
     # INSTRUCTIONS:
-    1. Ask the user for a problem number.
-    2. Use 'append_to_state_tool' to save the problem number into the {Field.PROBLEM_NUMBER} field.
-    3. Use 'load_problem_into_state_tool' to load the file from the 'problems' directory into the {Field.PROBLEM} field.
+    1. Ask the user for filename (ex: filename.txt) to load from 'problems' directory.
+    2. Use 'append_to_state_tool' to save the filename into the {Field.PROBLEM_FILENAME} field.
+    3. Use 'load_data_into_state_tool' to load the file from the 'problems' directory into the {Field.PROBLEM} field.
     4. Ask the user if they wish to proceed with solution design.
     5. If the user agrees, confirm your support and hand off to the solution_architecture_team.
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     tools=[
         append_to_state_tool,
-        load_problem_into_state_tool,
+        load_data_into_state_tool,
     ],
     sub_agents=[solution_architecture_team],
 )
