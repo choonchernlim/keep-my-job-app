@@ -27,6 +27,7 @@ print(model_name)
 
 
 class Field(StrEnum):
+    PROBLEM_NUMBER = "PROBLEM_NUMBER"
     PROBLEM = "PROBLEM"
     PROPOSED_SOLUTION = "PROPOSED_SOLUTION"
     CRITICAL_FEEDBACK = "CRITICAL_FEEDBACK"
@@ -43,8 +44,10 @@ technical_writer = Agent(
     INSTRUCTIONS:
     - Review the {Field.PROPOSED_SOLUTION} and create a well-structured document summarizing the architecture design.
     - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
-        - For a filename, use the document title
-        - Write to the 'solutions' directory.
+        - For a filename, use this naming convention:
+            - [CURRENT DATE]__[{Field.PROBLEM_NUMBER}]__[document title with safe characters].md
+            - Example: 2026-01-01__2__patient-data-pipeline.md
+        - Write to the 'proposed_solutions' directory.
 
     PROPOSED_SOLUTION:
     {{ {Field.PROPOSED_SOLUTION}? }}
@@ -123,7 +126,7 @@ solution_architect = Agent(
         - Use GCP managed services and cloud-native patterns for core functional components.
         - Ensure high availability, scalability, security and disaster recovery.
         - Embed PHI protection and HIPAA compliance.
-        - Explicitly document at least two architectural trade-offs.
+        - Explicitly document at least three architectural trade-offs.
     3. Output a structured SAD using Markdown headings and bullet points.
     
     PROBLEM: 
@@ -188,25 +191,17 @@ root_agent = Agent(
     You are a helpful engineering solution coordinator.
 
     # INSTRUCTIONS:
-    1. Ask the user for a question number.
-    2. Use 'load_problem_into_state_tool' to load the file from the problems directory into the {Field.PROBLEM} field.
-    3. Ask the user if they wish to proceed with solution design.
-    4. If the user agrees, confirm your support and hand off to the solution_architecture_team.
+    1. Ask the user for a problem number.
+    2. Use 'append_to_state_tool' to save the problem number into the {Field.PROBLEM_NUMBER} field.
+    3. Use 'load_problem_into_state_tool' to load the file from the 'problems' directory into the {Field.PROBLEM} field.
+    4. Ask the user if they wish to proceed with solution design.
+    5. If the user agrees, confirm your support and hand off to the solution_architecture_team.
     """,
-
-    # instruction="""
-    #     - Ask user what question number to load.
-    #     - When the user provides the question number, use the 'load_problem_into_state_tool' tool to
-    #         load the problem from 'problems' directory into field 'PROBLEM'.
-    #     - When a problem is loaded, summarize it for the user and ask if the user would like to proceed with solution design.
-    #     - If the user agrees, let them know you will help them work through it.
-    #     - Hand off to the 'solution_architecture_team' to do the solution design.
-    # """,
-
-    #         - When a question is loaded, acknowledge it and let the user know you will help them work through it.
-    #         - Hand off to the 'solution_architecture_team' to do the solution design.
     generate_content_config=types.GenerateContentConfig(temperature=0),
-    tools=[load_problem_into_state_tool],
+    tools=[
+        append_to_state_tool,
+        load_problem_into_state_tool,
+    ],
     sub_agents=[solution_architecture_team],
 )
 

@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <title>SVG Viewer</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #ffffff; /* Dark background for contrast */
+        }
+
+        .svg-container {
+            width: 100%; /* Fills screen width */
+            margin: 0 auto; /* Centers it */
+        }
+
+        svg {
+            display: block;
+            width: 100%;
+            height: auto; /* Maintains aspect ratio */
+        }
+    </style>
+    <script>
+        // read svg.html and insert its content into the svg-container div
+        fetch('svg.html')
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('.svg-container').innerHTML = data;
+
+                const svg = document.querySelector('svg');
+
+                svg.querySelectorAll('text').forEach(el => {
+                    el.setAttribute('font-family', 'Roboto, sans-serif');
+                    el.setAttribute('fill', '#666666');
+                });
+
+                svg.querySelectorAll('g.graph polygon').forEach(el => {
+                    el.setAttribute('stroke', 'none');
+                    el.setAttribute('fill', 'none');
+                });
+
+                svg.querySelectorAll('g.cluster ellipse, g.cluster path').forEach(el => {
+                    el.setAttribute('stroke', '#666666');
+                    el.setAttribute('fill', 'none');
+                });
+
+                svg.querySelectorAll('g.edge path').forEach(el => {
+                    el.setAttribute('stroke', '#666666');
+                    el.setAttribute('fill', 'none');
+                });
+
+                svg.querySelectorAll('g.edge polygon').forEach(el => {
+                    el.setAttribute('stroke', '#666666');
+                    el.setAttribute('fill', '#666666');
+                });
+
+                svg.querySelectorAll('g.node').forEach(el => {
+                    const text = el.querySelector('text');
+                    const shape = el.querySelector('ellipse, path');
+                    if (!text || !shape) return;
+                    if (text.textContent.includes('🤖')) {
+                        shape.setAttribute('stroke', 'green');
+                        shape.setAttribute('fill', 'lightgreen');
+                    } else if (text.textContent.includes('🔧')) {
+                        shape.setAttribute('stroke', 'blue');
+                        shape.setAttribute('fill', 'lightblue');
+                    } else {
+                        shape.setAttribute('stroke', '#666666');
+                        shape.setAttribute('fill', '#cccccc');
+                    }
+                });
+            });
+    </script>
+</head>
+<body>
+<div class="svg-container">
+
+</div>
+</body>
+</html>

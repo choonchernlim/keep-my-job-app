@@ -9,8 +9,7 @@
 gcloud auth login && gcloud auth application-default login
 ```
 
-- Rename [.env.sample](adk/.env.sample) to `adk/.env` and replace `[PROJECT_ID]` with your Google
-  Cloud project ID.
+- In `adk/`, rename `.env.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
 
 - Run the agents:
 
@@ -18,3 +17,7 @@ gcloud auth login && gcloud auth application-default login
 cd adk/
 adk web --reload_agents
 ```
+
+## Helpful Links
+
+- [Developer’s guide to multi-agent patterns in ADK](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/)

@@ -4,6 +4,9 @@ import os
 from google.adk.tools import ToolContext
 from google.genai.types import Part
 import markdown
+from pathlib import Path
+
+DATA_DIR = Path.cwd().parent / "data"
 
 # def get_question(num):
 #     with open(f"solution_design/questions/{num}.txt", "r") as f:
@@ -87,7 +90,8 @@ def load_problem_into_state_tool(
         dict[str, str]: {"status": "success"}
     """
 
-    target_path = os.path.join(directory, f"{number}.txt")
+    target_path = DATA_DIR / directory / f"{number}.txt"
+    # target_path = os.path.join(directory, f"{number}.txt")
 
     with open(target_path, "r") as f:
         append_to_state_tool(tool_context, field, f.read())
@@ -126,6 +130,7 @@ def load_problem_into_state_tool(
 
 async def save_as_artifact_tool(
         tool_context: ToolContext,
+        directory: str,
         filename: str,
         content: str,
 ) -> dict[str, str]:
@@ -133,11 +138,17 @@ async def save_as_artifact_tool(
 
     Args:
         :param tool_context: tool context
+        :param directory: directory to save file in
         :param filename: filename to save as
         :param content: data to write to file
     Returns:
         dict[str, str]: {"status": "success"}
     """
+    target_path = DATA_DIR / directory / filename
+
+    with open(target_path, "w") as f:
+        f.write(content)
+
     html = markdown.markdown(content)
 
     artifact = Part.from_bytes(
