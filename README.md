@@ -1,5 +1,14 @@
 # "Keep My Job" App
 
+Are you struggling to keep your job? Want to impress your boss and appear marginally more competent?
+
+"Keep My Job" is an app that uses AI multi-agent systems to help you work faster and get more done.
+
+## Solution Design Agents
+
+These agents work together to propose the best solution architecture for a given problem statement.
+
+![agents.png](doc/agents.png)
 
 ## Getting Started
 
