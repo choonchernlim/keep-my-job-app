@@ -10,7 +10,7 @@ from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, \
 from google.genai import types
 from google.genai.types import Part
 
-logging.basicConfig(level=logging.INFO)  # or logging.ERROR for only errors
+# logging.basicConfig(level=logging.INFO)  # or logging.ERROR for only errors
 
 load_dotenv()
 
