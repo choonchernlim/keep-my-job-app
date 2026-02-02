@@ -72,8 +72,41 @@
     </script>
 </head>
 <body>
-<div class="svg-container">
 
+<div class="svg-container">
 </div>
+
+<button id="downloadBtn">Download SVG</button>
+
+<script>
+    function downloadSvg(svgElement, filename = 'diagram.svg') {
+        // Clone the SVG so we don’t modify the live DOM
+        const svgClone = svgElement.cloneNode(true);
+
+        // Ensure SVG namespace
+        svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+
+        // Serialize SVG to string
+        const serializer = new XMLSerializer();
+        const svgString = serializer.serializeToString(svgClone);
+
+        // Create a Blob and trigger download
+        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    // Button click triggers download
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+        const svg = document.getElementsByTagName('svg')[0];
+        downloadSvg(svg, 'diagram.svg');
+    });
+</script>
 </body>
 </html>

@@ -8,7 +8,8 @@ Are you struggling to keep your job? Want to impress your boss and appear margin
 
 These agents work together to propose the best solution architecture for a given problem statement.
 
-![agents.png](doc/agents.png)
+![diagram.svg](doc/diagram.svg)
+
 
 ## Getting Started
 
