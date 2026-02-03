@@ -10,12 +10,10 @@ from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, \
 from google.genai import types
 from google.genai.types import Part
 
-# logging.basicConfig(level=logging.INFO)  # or logging.ERROR for only errors
-
 load_dotenv()
 
-model_name = os.getenv("MODEL")
-print(model_name)
+model = os.getenv("MODEL")
+print(model)
 
 
 def append_to_state_tool(
@@ -39,15 +37,39 @@ def append_to_state_tool(
     return {"status": "success"}
 
 
-async def save_image_as_artifact_tool(
+# async def save_image_as_artifact_tool(
+#         tool_context: ToolContext,
+#         image: bytes,
+#         filename: str,
+# ) -> dict[str, str]:
+#     image = Part.from_bytes(
+#         data=image,
+#         mime_type="image/png",
+#     )
+#     version = await tool_context.save_artifact(filename, image)
+#
+#     return {"status": "success", "version": version}
+
+
+async def save_png_file_as_artifact_tool(
         tool_context: ToolContext,
-        image: bytes,
-        filename: str,
+        png_path: str,
+        mime_type: str,
 ) -> dict[str, str]:
+    # 1. FIX: Derive the filename from the path (or pass it as an argument)
+    filename = os.path.basename(png_path)
+
+    # 2. FIX: Read the actual bytes from the file
+    # Part.from_bytes expects 'bytes', not a string path
+    with open(png_path, "rb") as f:
+        image_data = f.read()
+
     image = Part.from_bytes(
-        data=image,
-        mime_type="image/png",
+        data=image_data,
+        mime_type=mime_type,
     )
+
+    # 3. Save using the defined filename and the byte content
     version = await tool_context.save_artifact(filename, image)
 
     return {"status": "success", "version": version}
@@ -55,33 +77,37 @@ async def save_image_as_artifact_tool(
 
 diagram_writer = Agent(
     name="diagram_writer",
-    model=model_name,
-    description="Write Mermaid diagram.",
+    model=model,
+    description="Generate Mermaid diagram.",
     instruction="""
     INSTRUCTIONS:
-    1. Call 'generate_mermaid_diagram' tool to produce a diagram.
-    2. Save the PNG as an artifact using 'save_image_as_artifact_tool'.
-    3. Present the artifact to the user to view.
-
-    MERMAID_SYNTAX:
-    { MERMAID_SYNTAX? }
+    1. Call 'generate' tool to create a diagram with the following configuration:
+        - name: test2
+        - folder: ../data/images/
+    2. Call 'save_png_file_as_artifact_tool' to save file as artifact
     """,
     tools=[
         MCPToolset(
             connection_params=StdioConnectionParams(
                 server_params=StdioServerParameters(
-                    command='python',
-                    args=["proxy_mermaid.py"],
+                    command="env",
+                    args=[
+                        "CONTENT_IMAGE_SUPPORTED=false",
+                        "npx",
+                        "-y",
+                        "@peng-shawn/mermaid-mcp-server"
+                    ],
                 ),
+                timeout=30,
             ),
         ),
-        save_image_as_artifact_tool,
-    ]
+        save_png_file_as_artifact_tool,
+    ],
 )
 
 diagram_specialist = Agent(
     name="diagram_specialist",
-    model=model_name,
+    model=model,
     description="Create Mermaid diagram.",
     instruction="""
     ROLE:
@@ -136,7 +162,7 @@ ux_team = SequentialAgent(
 
 root_agent = Agent(
     name="root_agent",
-    model=model_name,
+    model=model,
     description="Orchestrator.",
     instruction=f"""
     You are a Principal Solutions Architect.
