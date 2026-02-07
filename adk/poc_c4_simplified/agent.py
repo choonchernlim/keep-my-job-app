@@ -5,86 +5,14 @@ from dotenv import load_dotenv
 from google.adk import Agent
 from google.adk.agents import SequentialAgent
 from google.adk.models import LiteLlm
-from google.adk.tools import ToolContext
 from google.genai import types
+
+from .tools import set_c4_field_to_state_tool, get_next_c4_from_state_tool
 
 load_dotenv()
 
 model = LiteLlm(model=os.getenv("MODEL")) if os.getenv("LITELLM") else os.getenv("MODEL")
 logging.info(model)
-
-
-def append_to_state_tool(
-        tool_context: ToolContext,
-        field: str,
-        response: str) -> dict[str, str]:
-    """Append new output to an existing state key.
-
-    Args:
-        :param tool_context: tool context
-        :param field: a field name to append to
-        :param response: a string to append to the field
-
-    Returns:
-        dict[str, str]: {"status": "success"}
-    """
-    # list all fields in the state for debugging
-
-    existing_state = tool_context.state.get(field, [])
-    tool_context.state[field] = existing_state + [response]
-    logging.info(f"[Added to {field}] {response}")
-
-    logging.info(f"[########] {tool_context.state.to_dict()}")
-
-    return {"status": "success"}
-
-
-def set_c4_to_state_tool(
-        tool_context: ToolContext,
-        key: int,
-        diagram_type: str,  # context or container
-        description: str,
-        mermaid_syntax: str = None) -> dict[str, str]:
-    tool_context.state["c4"] = tool_context.state.get("c4", {})
-    tool_context.state["c4"][key] = {
-        "diagram_type": diagram_type,
-        "description": description,
-        "mermaid_syntax": mermaid_syntax,
-    }
-
-    return {"status": "success"}
-
-
-def set_c4_field_to_state_tool(
-        tool_context: ToolContext,
-        key: int,
-        field: str,
-        value: str) -> dict[str, str]:
-    tool_context.state["c4"] = tool_context.state.get("c4", {})
-
-    if key not in tool_context.state["c4"]:
-        tool_context.state["c4"][key] = {}
-
-    tool_context.state["c4"][key][field] = value
-
-    return {"status": "success"}
-
-
-def get_next_c4_from_state_tool(
-        tool_context: ToolContext,
-        missing_field: str) -> dict[str, str] | None:
-    tool_context.state["c4"] = tool_context.state.get("c4", {})
-
-    for key, info in tool_context.state["c4"].items():
-        if missing_field not in info:
-            return {
-                "key": key,
-                "diagram_type": info["diagram_type"],
-                "description": info["description"],
-            }
-
-    return None
-
 
 c4_content_analyzer = Agent(
     name="c4_content_analyzer",
@@ -92,9 +20,12 @@ c4_content_analyzer = Agent(
     description="Set C4 states.",
     instruction="""
     Use 'set_c4_field_to_state_tool' to save the following info into the state:
-        - key = 1, diagram_type = context, description = "this is my context"
-        - key = 2, diagram_type = container, description = "this is container 1"
-        - key = 3, diagram_type = container, description = "this is container 2"
+        - key = 1, field = diagram_type, value = context
+        - key = 1, field = description, value = this is my context
+        - key = 2, field = diagram_type, value = container
+        - key = 2, field = description, value = this is container 1
+        - key = 3, field = diagram_type, value = container
+        - key = 3, field = description, value = this is container 2
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     tools=[
@@ -107,7 +38,7 @@ c4_syntax = Agent(
     model=model,
     description="Generate mermaid syntax for C4 diagrams.",
     instruction="""
-    1. Use 'get_next_c4_from_state_tool' to get the next object without mermaid_syntax.
+    1. Call 'get_next_c4_from_state_tool' with missing_field = mermaid_png_path.
     2. If there is such object:
         - Inform that you will generate the mermaid syntax for the object, example:
             - Template: "Generating C4 syntax (type = [diagram_type], description = [description])...".
@@ -129,7 +60,7 @@ c4_writer = Agent(
     model=model,
     description="Generate mermaid image.",
     instruction="""
-    1. Use 'get_next_c4_from_state_tool' to get the next object without mermaid_png_path.
+    1. Call 'get_next_c4_from_state_tool' to find object with missing mermaid_png_path field.
     2. If there is such object:
         - Inform that you will generate the mermaid image for the object, example:
             - Template: "Generating C4 image (type = [diagram_type], description = [description])...".
@@ -152,7 +83,7 @@ c4_team = SequentialAgent(
     sub_agents=[
         c4_content_analyzer,
         c4_syntax,
-        c4_writer,
+        # c4_writer, # TODO temporarily disable the image generation since it's not working well and we want to focus on the content and syntax generation first
     ],
 )
 

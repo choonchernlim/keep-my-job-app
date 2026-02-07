@@ -27,7 +27,19 @@ gcloud auth login && gcloud auth application-default login
 
 #### Option: Ollama
 
+- Install and start Ollama service:
+```shell
+brew install ollama
+brew services start ollama
+```
+
+- Pull the Qwen3 0.6b model:
+```shell
+ollama pull qwen3:0.6b
+```
+
 - In `adk/`, rename `.env.ollama.sample` to `.env`.
+
 
 ### Web UI
  
