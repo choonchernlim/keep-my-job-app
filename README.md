@@ -14,16 +14,24 @@ These agents work together to propose the best solution architecture for a given
 
 ## Getting Started
 
-- Log in to Google Cloud:
+### Setup Model
 
+#### Option: Gemini
+
+- Log in to Google Cloud:
 ```shell
 gcloud auth login && gcloud auth application-default login
 ```
 
-- In `adk/`, rename `.env.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
+- In `adk/`, rename `.env.gemini.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
 
+#### Option: Ollama
+
+- In `adk/`, rename `.env.ollama.sample` to `.env`.
+
+### Web UI
+ 
 - Run the agents:
-
 ```shell
 cd adk/
 adk web --reload_agents
