@@ -1,7 +1,9 @@
+import logging
 import os
 
 from dotenv import load_dotenv
 from google.adk import Agent
+from google.adk.models import LiteLlm
 from google.adk.tools import ToolContext
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, \
     StdioServerParameters, StdioConnectionParams
@@ -9,8 +11,8 @@ from google.genai.types import Part
 
 load_dotenv()
 
-model = os.getenv("MODEL")
-print(model)
+model = LiteLlm(model=os.getenv("MODEL")) if os.getenv("LITELLM") else os.getenv("MODEL")
+logging.info(model)
 
 
 async def save_image_as_artifact_tool(

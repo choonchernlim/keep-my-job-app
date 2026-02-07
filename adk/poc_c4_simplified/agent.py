@@ -3,18 +3,15 @@ import os
 
 from dotenv import load_dotenv
 from google.adk import Agent
-from google.adk.agents import SequentialAgent, LoopAgent
+from google.adk.agents import SequentialAgent
+from google.adk.models import LiteLlm
 from google.adk.tools import ToolContext
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, \
-    StdioServerParameters, StdioConnectionParams
 from google.genai import types
-from google.genai.types import Part
-from typing import List
 
 load_dotenv()
 
-model = os.getenv("MODEL")
-print(model)
+model = LiteLlm(model=os.getenv("MODEL")) if os.getenv("LITELLM") else os.getenv("MODEL")
+logging.info(model)
 
 
 def append_to_state_tool(

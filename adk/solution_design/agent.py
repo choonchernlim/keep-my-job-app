@@ -5,6 +5,7 @@ from enum import StrEnum
 from dotenv import load_dotenv
 from google.adk import Agent
 from google.adk.agents import SequentialAgent, LoopAgent
+from google.adk.models import LiteLlm
 from google.adk.tools import exit_loop
 from google.genai import types
 
@@ -14,7 +15,9 @@ logging.basicConfig(level=logging.INFO)
 
 load_dotenv()
 
-model = os.getenv("MODEL")
+model = LiteLlm(model=os.getenv("MODEL")) if os.getenv("LITELLM") else os.getenv("MODEL")
+logging.info(model)
+
 
 class Field(StrEnum):
     PROBLEM_FILENAME = "PROBLEM_FILENAME"
