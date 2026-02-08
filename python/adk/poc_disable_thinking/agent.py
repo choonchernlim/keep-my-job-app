@@ -2,8 +2,9 @@ import logging
 
 from dotenv import load_dotenv
 from google.adk import Agent
-from google.adk.models import LiteLlm
 from google.genai import types
+
+from shared.model import get_model
 
 load_dotenv()
 
@@ -14,23 +15,12 @@ load_dotenv()
 #     }}
 # )
 
-from shared.model import get_model
 
 model = get_model()
 # model = LiteLlm(
 #     model="ollama_chat/qwen3:8b",
 #     extra_body={
 #         "think": False,
-#     }
-# )
-
-# model = LiteLlm(
-#     model="ollama_chat/qwen3:8b",
-#     model_kwargs={
-#         "chat_template_kwargs": {
-#             # "enable_thinking": False
-#             "think": False,
-#         }
 #     }
 # )
 
