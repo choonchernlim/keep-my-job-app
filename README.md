@@ -23,7 +23,7 @@ These agents work together to propose the best solution architecture for a given
 gcloud auth login && gcloud auth application-default login
 ```
 
-- In `adk/`, rename `.env.gemini.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
+- In `python/adk/`, rename `.env.gemini.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
 
 #### Option: Ollama
 
@@ -35,17 +35,17 @@ brew services start ollama
 
 - Pull the Qwen3 0.6b model:
 ```shell
-ollama pull qwen3:0.6b
+ollama pull qwen3:8b
 ```
 
-- In `adk/`, rename `.env.ollama.sample` to `.env`.
+- In `python/adk/`, rename `.env.ollama.sample` to `.env`.
 
 
 ### Web UI
  
 - Run the agents:
 ```shell
-cd adk/
+cd python/adk/
 adk web --reload_agents
 ```
 

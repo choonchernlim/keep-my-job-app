@@ -46,12 +46,51 @@ from google.adk.tools import ToolContext
 #
 #     return {"status": "success"}
 
+def set_state_tool(
+        tool_context: ToolContext,
+        field: str,
+        value: str) -> dict[str, str]:
+    logging.info(f"##### : field={field}, value={value}...")
+
+    tool_context.state[field] = value
+
+    return {"status": "success"}
+
+def get_state_tool(
+        tool_context: ToolContext,
+        field: str) -> str:
+    logging.info(f"##### : field={field}...")
+
+    if field not in tool_context.state:
+        raise ValueError(f"Field [{field}] not found in state.")
+
+    return tool_context.state[field]
+
+def get_c4_by_key_tool(
+        tool_context: ToolContext,
+        key: int) -> dict[str, str]:
+    logging.info(f"##### : key={key}...")
+    tool_context.state["c4"] = tool_context.state.get("c4", {})
+
+    if key not in tool_context.state["c4"]:
+        raise ValueError(f"C4 with key [{key}] not found in state.")
+
+    return tool_context.state["c4"][key]
 
 def set_c4_field_to_state_tool(
         tool_context: ToolContext,
         key: int,
         field: str,
         value: str) -> dict[str, str]:
+    """
+    Set a specific field of a C4 diagram in the state. If the C4 diagram with the given key does not exist, it will be created.
+
+    :param tool_context: Tool context
+    :param key: Unique identifier for the C4 diagram (e.g., 1, 2, 3)
+    :param field: Field name to set (e.g., diagram_type, description, mermaid_syntax)
+    :param value: Value to set for the specified field
+    :return: {"status": "success"}
+    """
     logging.info(f"##### : key={key}, field={field}, value={value}...")
     tool_context.state["c4"] = tool_context.state.get("c4", {})
 

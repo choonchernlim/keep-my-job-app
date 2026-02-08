@@ -5,7 +5,7 @@ import markdown
 from google.adk.tools import ToolContext
 from google.genai.types import Part
 
-DATA_DIR = Path.cwd().parent / "data"
+DATA_DIR = Path.cwd().parent.parent / "data"
 
 
 def append_to_state_tool(
