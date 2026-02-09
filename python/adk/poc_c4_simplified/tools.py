@@ -1,4 +1,5 @@
 import logging
+from typing import Any
 
 from google.adk.tools import ToolContext
 
@@ -49,12 +50,11 @@ from google.adk.tools import ToolContext
 def set_state_tool(
         tool_context: ToolContext,
         field: str,
-        value: str) -> dict[str, str]:
+        value: str) -> None:
     logging.info(f"##### : field={field}, value={value}...")
 
     tool_context.state[field] = value
 
-    return {"status": "success"}
 
 def get_state_tool(
         tool_context: ToolContext,
@@ -65,6 +65,7 @@ def get_state_tool(
         raise ValueError(f"Field [{field}] not found in state.")
 
     return tool_context.state[field]
+
 
 def get_c4_by_key_tool(
         tool_context: ToolContext,
@@ -77,11 +78,12 @@ def get_c4_by_key_tool(
 
     return tool_context.state["c4"][key]
 
+
 def set_c4_field_to_state_tool(
         tool_context: ToolContext,
         key: int,
         field: str,
-        value: str) -> dict[str, str]:
+        value: str) -> None:
     """
     Set a specific field of a C4 diagram in the state. If the C4 diagram with the given key does not exist, it will be created.
 
@@ -92,28 +94,96 @@ def set_c4_field_to_state_tool(
     :return: {"status": "success"}
     """
     logging.info(f"##### : key={key}, field={field}, value={value}...")
-    tool_context.state["c4"] = tool_context.state.get("c4", {})
 
-    if key not in tool_context.state["c4"]:
-        tool_context.state["c4"][key] = {}
-
-    tool_context.state["c4"][key][field] = value
-
-    return {"status": "success"}
+    state = tool_context.state.setdefault("c4", {})
+    state.setdefault(key, {})[field] = value
 
 
-def get_next_c4_from_state_tool(
+# def get_next_c4_from_state_tool(
+#         tool_context: ToolContext,
+#         missing_field: str) -> dict[str, Any] | None:
+#     logging.info(f"##### : missing_field={missing_field}...")
+#     tool_context.state["c4"] = tool_context.state.get("c4", {})
+#
+#     for key, info in tool_context.state["c4"].items():
+#         if missing_field not in info:
+#             return {
+#                 "key": key,
+#                 "diagram_type": info["diagram_type"],
+#                 "description": info["description"],
+#                 "processed": False,
+#             }
+#
+#     return None
+
+
+def set_new_c4_request_tool(
         tool_context: ToolContext,
-        missing_field: str) -> dict[str, str] | None:
-    logging.info(f"##### : missing_field={missing_field}...")
-    tool_context.state["c4"] = tool_context.state.get("c4", {})
+        diagram_type: str,
+        description: str) -> dict[str, str]:
+    logging.info(f"##### : diagram_type={diagram_type}, description={description}...")
 
-    for key, info in tool_context.state["c4"].items():
-        if missing_field not in info:
-            return {
-                "key": key,
-                "diagram_type": info["diagram_type"],
-                "description": info["description"],
-            }
+    state = tool_context.state.setdefault("c4", {})
 
-    return None
+    # count items in state to determine the new key
+    key = len(state) + 1
+
+    # new request
+    state[key] = {
+        "key": key,
+        "diagram_type": diagram_type,
+        "description": description,
+        "processed": False,
+    }
+
+    return {
+        **{"status": "success"},
+        **state[key]
+    }
+
+
+def save_processed_c4_request_tool(
+        tool_context: ToolContext,
+        key: int,
+        mermaid_syntax: str) -> dict[str, str]:
+    logging.info(f"#####...")
+
+    state = tool_context.state.get("c4")
+    state[key]["processed"] = True
+    state[key]["mermaid_syntax"] = mermaid_syntax
+
+    return {
+        "status": "success",
+    }
+
+
+def get_next_unprocessed_c4_request_tool(
+        tool_context: ToolContext):
+    logging.info(f"#####...")
+
+    state = tool_context.state.get("c4")
+
+    return next(({
+        "status": "success",
+        "key": info["key"],
+        "diagram_type": info["diagram_type"],
+        "description": info["description"],
+    } for info in state.values() if not info["processed"]), {"status": "not_found"})
+
+    # if request:
+    #     return {
+    #         "status": "success",
+    #         "key": request["key"],
+    #         "diagram_type": request["diagram_type"],
+    #         "description": request["description"],
+    #     }
+    #
+    # return {
+    #     "status": "not_found",
+    # }
+
+    # for info in tool_context.state["c4"].values():
+    #     if not info["processed"]:
+    #         return info
+    #
+    # return None
