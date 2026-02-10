@@ -73,6 +73,8 @@ adk web
 
 - ...
 
-### Step 5: PROFIT!
+### STEP 5: PROFIT!
 
 ![panda-destruction.gif](doc/panda-destruction.gif)
+
+[https://www.youtube.com/watch?v=dQw4w9WgXcQ](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
