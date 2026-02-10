@@ -56,5 +56,5 @@ adk web --reload_agents
 
 - [Developer’s guide to multi-agent patterns in ADK](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/)
 
-<video src="https://media.tenor.com/8JRZusnGbckAAAPo/panda-destruction.mp4" autoplay loop></video>
+<video src="https://media.tenor.com/8JRZusnGbckAAAPo/panda-destruction.mp4" autoplay loop controls></video>
 
