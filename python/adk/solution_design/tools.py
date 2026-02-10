@@ -8,6 +8,25 @@ from google.genai.types import Part
 DATA_DIR = Path.cwd().parent.parent / "data"
 
 
+def set_state_tool(
+        tool_context: ToolContext,
+        field: str,
+        response: str) -> dict[str, str]:
+    """Set a state key to a new value.
+
+    Args:
+        :param tool_context: tool context
+        :param field: a field name to append to
+        :param response: a string to set the field to
+
+    Returns:
+        dict[str, str]: {"status": "success"}
+    """
+    tool_context.state.setdefault(field, response)
+
+    return {"status": "success"}
+
+
 def append_to_state_tool(
         tool_context: ToolContext,
         field: str,
@@ -24,12 +43,11 @@ def append_to_state_tool(
     """
     existing_state = tool_context.state.get(field, [])
     tool_context.state[field] = existing_state + [response]
-    logging.info(f"[Added to {field}] {response}")
 
     return {"status": "success"}
 
 
-def load_data_into_state_tool(
+def load_file_data_into_state_tool(
         tool_context: ToolContext,
         directory: str,
         filename: str,
@@ -39,7 +57,7 @@ def load_data_into_state_tool(
 
     Args:
         :param tool_context: tool context
-        :param directory: directory where question files are stored
+        :param directory: directory where files are stored
         :param filename: filename to load, ex: filename.txt
         :param field: a field name to save to
     Returns:
@@ -49,7 +67,7 @@ def load_data_into_state_tool(
     target_path = DATA_DIR / directory / filename
 
     with open(target_path, "r") as f:
-        append_to_state_tool(tool_context, field, f.read())
+        set_state_tool(tool_context, field, f.read())
 
     return {"status": "success"}
 

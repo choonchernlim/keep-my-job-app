@@ -1,22 +1,14 @@
-from enum import StrEnum
-
 from google.adk import Agent
 from google.adk.agents import SequentialAgent, LoopAgent
 from google.adk.tools import exit_loop
 from google.genai import types
 
+from shared.callbacks import display_agent_state, display_tool_state
 from shared.model import get_model
+from ...constants import Field
 from ...tools import append_to_state_tool, save_as_artifact_tool
 
 model = get_model()
-
-
-class Field(StrEnum):
-    PROBLEM_FILENAME = "PROBLEM_FILENAME"
-    PROBLEM = "PROBLEM"
-    PROPOSED_SOLUTION = "PROPOSED_SOLUTION"
-    CRITICAL_FEEDBACK = "CRITICAL_FEEDBACK"
-
 
 technical_writer = Agent(
     name="technical_writer",
@@ -31,14 +23,16 @@ technical_writer = Agent(
     - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
         - For a filename, use this naming convention:
             - {{timestamp}}__[{Field.PROBLEM_FILENAME} with safe characters]__[document title with safe characters].md
-            - Example: 20260101__filename-txt__patient-data-pipeline.md
+            - Example: 202602092022__filename-txt__patient-data-pipeline.md
         - Write to the 'proposed_solutions' directory.
 
     PROPOSED_SOLUTION:
-    {{ {Field.PROPOSED_SOLUTION}? }}
+    {{ {Field.PROPOSED_SOLUTION} }}
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     tools=[save_as_artifact_tool],
+    before_tool_callback=display_tool_state,
+    before_agent_callback=display_agent_state,
 )
 
 architectural_review_board = Agent(
@@ -69,12 +63,17 @@ architectural_review_board = Agent(
     - Explain your decision and briefly summarize the feedback you have provided.
                 
     PROBLEM:
-    {{ {Field.PROBLEM}? }}
+    {{ {Field.PROBLEM} }}
     
     PROPOSED_SOLUTION:
-    {{ {Field.PROPOSED_SOLUTION}? }}
+    {{ {Field.PROPOSED_SOLUTION} }}
     """,
-    tools=[append_to_state_tool, exit_loop]
+    tools=[
+        append_to_state_tool,
+        exit_loop,
+    ],
+    before_tool_callback=display_tool_state,
+    before_agent_callback=display_agent_state,
 )
 
 solution_architect = Agent(
@@ -87,7 +86,7 @@ solution_architect = Agent(
     cloud-native architectures for healthcare enterprises.
 
     INSTRUCTIONS:
-    1. Evaluate the {Field.PROBLEM} alongside any {Field.CRITICAL_FEEDBACK} to ensure iterative improvement.
+    1. Evaluate the {Field.PROBLEM} alongside any {Field.PROPOSED_SOLUTION} and {Field.CRITICAL_FEEDBACK} to ensure iterative improvement.
     2. Architect a solution strictly adhering to these Guardrails:
         - Use GCP managed services and cloud-native patterns for core functional components.
         - Ensure high availability, scalability, security and disaster recovery.
@@ -97,13 +96,18 @@ solution_architect = Agent(
     3. Output a structured Solution Architecture Document using Markdown headings and bullet points.
     
     PROBLEM: 
-    {{ {Field.PROBLEM}? }}
+    {{ {Field.PROBLEM} }}
     
+    PROPOSED_SOLUTION:
+    {{ {Field.PROPOSED_SOLUTION}? }}
+
     CRITICAL_FEEDBACK: 
     {{ {Field.CRITICAL_FEEDBACK}? }}
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     output_key=Field.PROPOSED_SOLUTION,
+    before_tool_callback=display_tool_state,
+    before_agent_callback=display_agent_state,
 )
 
 solutioning_room = LoopAgent(
