@@ -1,7 +1,15 @@
 import logging
-from typing import Any
+from datetime import datetime
+from pathlib import Path
 
 from google.adk.tools import ToolContext
+from google.genai.types import Part
+
+DATA_PATH = Path.cwd().parent.parent / "data"
+
+# fail if data path does not exist
+if not DATA_PATH.exists():
+    raise ValueError(f"Data path [{DATA_PATH}] does not exist.")
 
 
 # def append_to_state_tool(
@@ -117,7 +125,7 @@ def set_c4_field_to_state_tool(
 #     return None
 
 
-def set_new_c4_request_tool(
+def save_new_c4_request_tool(
         tool_context: ToolContext,
         diagram_type: str,
         description: str) -> dict[str, str]:
@@ -146,44 +154,103 @@ def save_processed_c4_request_tool(
         tool_context: ToolContext,
         key: int,
         mermaid_syntax: str) -> dict[str, str]:
-    logging.info(f"#####...")
-
     state = tool_context.state.get("c4")
     state[key]["processed"] = True
     state[key]["mermaid_syntax"] = mermaid_syntax
+
+    tool_context.state.update({
+        "key": None,
+        "diagram_type": None,
+        "description": None,
+        "mermaid_syntax": None,
+        "png_filename": None,
+        "png_directory_path": None,
+    })
 
     return {
         "status": "success",
     }
 
+    # return next(({
+    #     "status": "success",
+    #     "key": info["key"],
+    #     "diagram_type": info["diagram_type"],
+    #     "description": info["description"],
+    # } for info in state.values() if not info["processed"]), {"status": "not_found"})
+
 
 def get_next_unprocessed_c4_request_tool(
         tool_context: ToolContext):
-    logging.info(f"#####...")
-
     state = tool_context.state.get("c4")
 
-    return next(({
-        "status": "success",
-        "key": info["key"],
-        "diagram_type": info["diagram_type"],
-        "description": info["description"],
-    } for info in state.values() if not info["processed"]), {"status": "not_found"})
+    request = next((info for info in state.values() if not info["processed"]), None)
 
-    # if request:
-    #     return {
-    #         "status": "success",
-    #         "key": request["key"],
-    #         "diagram_type": request["diagram_type"],
-    #         "description": request["description"],
-    #     }
-    #
-    # return {
-    #     "status": "not_found",
-    # }
+    if request:
+        tool_context.state.update({
+            "key": request["key"],
+            "diagram_type": request["diagram_type"],
+            "description": request["description"],
+            "mermaid_syntax": None,
+            "png_filename": f"{datetime.now().strftime('%Y%m%d%H%M')}__{request["key"]}__{request["diagram_type"]}.png",
+            "png_directory_path": str(DATA_PATH / "images"),
+        })
+
+        return {
+            "status": "success",
+            "key": request["key"],
+            "diagram_type": request["diagram_type"],
+            "description": request["description"],
+        }
+
+    return {
+        "status": "not_found",
+    }
+
+
+async def save_png_file_as_artifact_tool(
+        tool_context: ToolContext,
+        png_filename: str,
+        png_directory_path: str,
+) -> dict[str, str]:
+    with open(Path(png_directory_path) / f"{png_filename}", "rb") as f:
+        image_data = f.read()
+
+    image = Part.from_bytes(
+        data=image_data,
+        mime_type="image/png",
+    )
+
+    version = await tool_context.save_artifact(png_filename, image)
+
+    return {
+        "status": "success",
+        "version": version,
+    }
 
     # for info in tool_context.state["c4"].values():
     #     if not info["processed"]:
     #         return info
     #
     # return None
+
+# async def save_png_file_as_artifact_tool(
+#         tool_context: ToolContext,
+#         png_directory_path: str,
+# ) -> dict[str, str]:
+#     # 1. FIX: Derive the filename from the path (or pass it as an argument)
+#     filename = os.path.basename(png_directory_path)
+#
+#     # 2. FIX: Read the actual bytes from the file
+#     # Part.from_bytes expects 'bytes', not a string path
+#     with open(png_directory_path, "rb") as f:
+#         image_data = f.read()
+#
+#     image = Part.from_bytes(
+#         data=image_data,
+#         mime_type=mime_type,
+#     )
+#
+#     # 3. Save using the defined filename and the byte content
+#     version = await tool_context.save_artifact(filename, image)
+#
+#     return {"status": "success", "version": version}

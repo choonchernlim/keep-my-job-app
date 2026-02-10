@@ -27,10 +27,10 @@ gcloud auth login && gcloud auth application-default login
 
 #### Option: Ollama
 
-- Install and start Ollama service:
+- Install and restart Ollama service:
 ```shell
 brew install ollama
-brew services start ollama
+brew services restart ollama
 ```
 
 - Pull the Qwen3 0.6b model:

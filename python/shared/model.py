@@ -24,6 +24,6 @@ def get_model():
             }
         )
 
-    logging.info(f"Using model: {model}")
+    logging.info(f"Model: {model}")
 
     return model
