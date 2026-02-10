@@ -19,7 +19,7 @@ technical_writer = Agent(
     - You are an experienced Technical Writer. 
 
     INSTRUCTIONS:
-    - Review the {Field.PROPOSED_SOLUTION} and create a well-structured Solution Architecture Document summarizing the architecture design.
+    - Review the {Field.ARCHITECTURE_SOLUTION} and create a well-structured Solution Architecture Document summarizing the architecture design.
     - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
         - For a filename, use this naming convention:
             - {{timestamp}}__[{Field.PROBLEM_FILENAME} with safe characters]__[document title with safe characters].md
@@ -27,7 +27,7 @@ technical_writer = Agent(
         - Write to the 'proposed_solutions' directory.
 
     PROPOSED_SOLUTION:
-    {{ {Field.PROPOSED_SOLUTION} }}
+    {{ {Field.ARCHITECTURE_SOLUTION} }}
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     tools=[save_as_artifact_tool],
@@ -46,7 +46,7 @@ architectural_review_board = Agent(
       production-ready for a healthcare enterprise.
 
     INSTRUCTIONS: 
-    - Critique the {Field.PROPOSED_SOLUTION} through the lens of Architectural Governance. 
+    - Critique the {Field.ARCHITECTURE_SOLUTION} through the lens of Architectural Governance. 
     - You are not here to "rubber-stamp" the design; you are here to identify risks. 
     
     Evaluate the following:
@@ -58,7 +58,7 @@ architectural_review_board = Agent(
     - What is missing? Check for lack of disaster recovery, monitoring, or cost-management strategies.
 
     DECISION LOGIC:
-    - If the {Field.PROPOSED_SOLUTION} is robust and risk-mitigated, call 'exit_loop'.
+    - If the {Field.ARCHITECTURE_SOLUTION} is robust and risk-mitigated, call 'exit_loop'.
     - If significant improvements can be made, use the 'append_to_state_tool' to add your feedback to the field {Field.CRITICAL_FEEDBACK}.
     - Explain your decision and briefly summarize the feedback you have provided.
                 
@@ -66,7 +66,7 @@ architectural_review_board = Agent(
     {{ {Field.PROBLEM} }}
     
     PROPOSED_SOLUTION:
-    {{ {Field.PROPOSED_SOLUTION} }}
+    {{ {Field.ARCHITECTURE_SOLUTION} }}
     """,
     tools=[
         append_to_state_tool,
@@ -86,7 +86,7 @@ solution_architect = Agent(
     cloud-native architectures for healthcare enterprises.
 
     INSTRUCTIONS:
-    1. Evaluate the {Field.PROBLEM} alongside any {Field.PROPOSED_SOLUTION} and {Field.CRITICAL_FEEDBACK} to ensure iterative improvement.
+    1. Evaluate the {Field.PROBLEM} alongside any {Field.ARCHITECTURE_SOLUTION} and {Field.CRITICAL_FEEDBACK} to ensure iterative improvement.
     2. Architect a solution strictly adhering to these Guardrails:
         - Use GCP managed services and cloud-native patterns for core functional components.
         - Ensure high availability, scalability, security and disaster recovery.
@@ -99,13 +99,13 @@ solution_architect = Agent(
     {{ {Field.PROBLEM} }}
     
     PROPOSED_SOLUTION:
-    {{ {Field.PROPOSED_SOLUTION}? }}
+    {{ {Field.ARCHITECTURE_SOLUTION}? }}
 
     CRITICAL_FEEDBACK: 
     {{ {Field.CRITICAL_FEEDBACK}? }}
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
-    output_key=Field.PROPOSED_SOLUTION,
+    output_key=Field.ARCHITECTURE_SOLUTION,
     before_tool_callback=display_tool_state,
     before_agent_callback=display_agent_state,
 )
