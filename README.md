@@ -3,12 +3,16 @@
 Are you struggling to keep your job? Want to impress your boss and appear marginally more competent?
 You are in the right place!
 
-"Keep My Job" is an app that uses AI multi-agent systems to help you to work faster and get more done.
+"Keep My Job" is an app that uses an AI multi-agent system to help you to work faster and get more done.
 
-## Solution Design Agents
+## Demo
+
+[![Agentic AI with Google ADK](https://img.youtube.com/vi/Toh2HwAzqHc/maxresdefault.jpg)](https://www.youtube.com/watch?v=Toh2HwAzqHc)
+
+## High-Level Architecture
 
 These agents work together to propose the best solution architecture for a given problem statement and
-generates C4 system context and container diagrams... all while I take a nap.
+generates C4 system context and container diagrams.
 
 ![diagram.svg](doc/diagram.svg)
 

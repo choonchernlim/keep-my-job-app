@@ -1,0 +1,53 @@
+AGENTIC AI PLATFORM ARCHITECTURE & SYSTEMS DESIGN
+
+SCENARIO:
+
+Your organization is building a shared enterprise Agentic AI platform that supports:
+	•	Autonomous and semi-autonomous agents
+	•	Multi-step reasoning and planning
+	•	Tool and API invocation
+	•	Human-in-the-loop interactions
+	•	Cross-agent collaboration
+
+The platform must support:
+	•	Multi-tenant workloads
+	•	Long-running and resumable agent executions
+	•	At-least-once agent actions
+	•	Idempotent tool execution
+	•	State and memory persistence
+	•	Policy, safety, and guardrail enforcement
+	•	Regional isolation (data residency)
+	•	99.99% availability for critical agents
+
+DELIVERABLES:
+
+Provide a written architecture proposal (diagrams optional, text acceptable).
+
+Address the following:
+
+1. High-Level Architecture
+	•	Agent execution pattern (sync vs async)
+	•	Orchestration model (event-driven vs workflow-based)
+	•	Separation of concerns (planning vs execution vs tools)
+	•	Agent runtime and model access layer
+	•	Multi-tenant isolation strategy
+
+2. Agent Execution & State Model
+	•	Planning and re-planning strategy
+	•	State and memory management
+	•	Deduplication of agent actions
+	•	Replay and resume strategy
+	•	Handling partial failures and retries
+
+3. Tooling & Control Plane
+	•	Tool registration and invocation model
+	•	Idempotency and side-effect control
+	•	Human approval checkpoints
+	•	Policy and guardrail enforcement
+	•	Observability and audit logging
+
+4. Evolution & Reliability
+	•	Agent definition and prompt versioning
+	•	Deterministic replay for debugging
+	•	Schema evolution for tools and memory
+	•	Safe rollout of new agent behaviors
