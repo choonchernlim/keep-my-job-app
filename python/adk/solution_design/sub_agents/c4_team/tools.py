@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime
 from pathlib import Path
 
@@ -12,8 +11,6 @@ def save_new_c4_request_tool(
         tool_context: ToolContext,
         diagram_type: str,
         description: str) -> dict[str, str]:
-    logging.info(f"##### : diagram_type={diagram_type}, description={description}...")
-
     state = tool_context.state.setdefault("c4", {})
 
     # count items in state to determine the new key
