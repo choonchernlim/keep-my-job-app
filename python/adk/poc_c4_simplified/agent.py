@@ -42,7 +42,12 @@ c4_content_analyzer = Agent(
     
     3. For each diagram, call 'save_new_c4_request_tool' to save the diagram type and description.
     
-    4. Inform user that the analysis is complete and you have saved 3 C4 diagram requests to the state.
+    4. You MUST output the acknowledgement in this EXACT format just ONE TIME (do not deviate):
+
+        The following C4 diagrams have been identified and saved for processing:
+        - **System Context Diagram**: [description]
+        - **Container Diagram**: [description]
+        - **Container Diagram**: [description]
     
     ARCHITECTURE SOLUTION:
     { architecture_solution }
@@ -65,11 +70,21 @@ c4_processor = Agent(
     TASKS:
     1. Call 'get_next_unprocessed_c4_request_tool'.
     2. Review the TOOL OUTPUT:
-       - IF output contains 'status': 'success':
-           a. Announce: "Processing C4 request (key = [key], type = [diagram_type], description = [description])..." using the values returned by the tool.
-           b. Hand off to the next agent immediately.
-       
-       - IF output contains 'status': 'not_found':
+       - IF output contains 'status' is 'success':
+            a. You MUST output the acknowledgement in this EXACT format (do not deviate):
+            
+                Processing C4 request...
+                - **[diagram_type] Diagram**: [description] 
+
+                Examples:
+                Processing C4 request...
+                - **System Context Diagram**: Some description 
+
+                Processing C4 request...
+                - **Container Diagram**: Some description 
+                
+            b. Hand off to the next agent immediately.       
+       - IF output contains 'status' is 'not_found':
            a. Announce: "No further unprocessed requests."
            b. Call 'exit_loop'    
     """,
@@ -88,25 +103,68 @@ c4_syntax = Agent(
     description="Generate mermaid syntax for C4 diagrams.",
     instruction="""
     ROLE: 
-    - Strict C4 Mermaid Syntax Generator.
+    - You are a Technical Diagram Specialist. 
+    - Your specific role is to translate architecture descriptions into valid Mermaid C4 syntax.
     
     TASKS:
-    - Generate ONLY the raw Mermaid code for a C4 diagram.
+    - Analyze ARCHITECTURE SOLUTION to identify all Users, Systems, Containers and Relationships.
+    - Based on DIAGRAM TYPE and DESCRIPTION, generate ONLY the raw Mermaid code for a C4 diagram.
+    
+    SYNTAX GUARDRAILS:
+    - Based on the DIAGRAM TYPE, ONLY use the approved elements:     
+        - context: C4Context, Enterprise_Boundary, System_Boundary, Person, Person_Ext, System, System_Ext, SystemDb, SystemDb_Ext, Rel, BiRel, UpdateLayoutConfig.
+        - container: C4Container, System_Boundary, Person, Person_Ext, System, System_Ext, SystemDb, SystemDb_Ext, Container, Container_Ext, ContainerDb, ContainerDb_Ext, Rel, BiRel, UpdateLayoutConfig.
+    - Use %% for comments.
     - Display the output in markdown code blocks (```mermaid ```).
     
     STRICT RULES:
     - DO NOT include introductory text (e.g., "Here is your diagram...").
     - DO NOT include concluding remarks.
-    - Output MUST start directly with the diagram declaration (e.g., C4Context, C4Container).
-    - If you cannot generate the syntax, return an empty string.
-   
-    INPUT DATA:
     
-    diagram_type:
-    { diagram_type? }
+    CONTEXT EXAMPLE:    
+    C4Context
+        title [TITLE] - System Context Diagram
+        
+        Enterprise_Boundary(b0, "My Organization") {
+            Person(user1, "User Name", "Description of user")
+            
+            System_Boundary(b1, "Cluster Name") {
+                System(sys1, "System Name", "Description")
+                SystemDb(db1, "Database Name", "Description")
+            }
+        }
+        
+        %% Relationships
+        Rel(user1, sys1, "Uses", "HTTPS")
+        BiRel(sys1, db1, "Reads/Writes")
 
-    description:
-    { description? }
+    CONTAINER EXAMPLE:    
+    C4Container
+        title [TITLE] - Container Diagram
+    
+        Person(user, "Customer")
+        System_Ext(mail, "E-Mail System")
+        System_Ext(main, "Mainframe")
+    
+        Container_Boundary(ib, "Internet Banking") {{
+            Container(mobile, "Mobile App", "Xamarin")
+            Container(web, "Web App", "Spring MVC")
+            ContainerDb(db, "Database", "SQL")
+        }}
+    
+        %% Relationships
+        Rel(user, web, "HTTPS")
+        Rel(user, mobile, "Uses")
+        Rel(mail, user, "E-mails")
+               
+    DIAGRAM TYPE:
+    { diagram_type }
+
+    DESCRIPTION:
+    { description }
+    
+    ARCHITECTURE SOLUTION:
+    { architecture_solution }
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     output_key="mermaid_syntax",
@@ -174,7 +232,7 @@ c4_team = SequentialAgent(
     description="Create an architecture design and save it as a text file.",
     sub_agents=[
         c4_content_analyzer,
-        # c4_diagram_generator_team, # TODO temp disabled
+        c4_diagram_generator_team,
     ],
 )
 
@@ -190,10 +248,6 @@ root_agent = Agent(
     instruction=f"""
     1. Handoff to 'c4_team' to proceed.
     """,
-    # instruction=f"""
-    # 1. Call 'mock_state' tool first.
-    # 2. Handoff to 'c4_team' to proceed.
-    # """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     sub_agents=[c4_team],
     before_agent_callback=inject_state, # TODO temp hack to inject state without a tool. Replace with a proper tool in the future.
