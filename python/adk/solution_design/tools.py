@@ -1,11 +1,8 @@
-import logging
-from pathlib import Path
-
 import markdown
 from google.adk.tools import ToolContext
 from google.genai.types import Part
 
-DATA_DIR = Path.cwd().parent.parent / "data"
+from shared.utils import get_data_dir_path
 
 
 def set_state_tool(
@@ -25,6 +22,21 @@ def set_state_tool(
     tool_context.state.setdefault(field, response)
 
     return {"status": "success"}
+
+
+def get_state_tool(
+        tool_context: ToolContext,
+        field: str) -> str:
+    """Get the value of a state key.
+
+    :param tool_context: tool context
+    :param field: field value to get from state
+    :return: Field value from state
+    """
+    if field not in tool_context.state:
+        raise ValueError(f"Field [{field}] not found in state.")
+
+    return tool_context.state[field]
 
 
 def append_to_state_tool(
@@ -64,7 +76,7 @@ def load_file_data_into_state_tool(
         dict[str, str]: {"status": "success"}
     """
 
-    target_path = DATA_DIR / directory / filename
+    target_path = get_data_dir_path() / directory / filename
 
     with open(target_path, "r") as f:
         set_state_tool(tool_context, field, f.read())
@@ -72,7 +84,7 @@ def load_file_data_into_state_tool(
     return {"status": "success"}
 
 
-async def save_as_artifact_tool(
+async def save_markdown_content_as_artifact_tool(
         tool_context: ToolContext,
         directory: str,
         filename: str,
@@ -88,7 +100,7 @@ async def save_as_artifact_tool(
     Returns:
         dict[str, str]: {"status": "success"}
     """
-    target_path = DATA_DIR / directory / filename
+    target_path = get_data_dir_path() / directory / filename
 
     with open(target_path, "w") as f:
         f.write(content)

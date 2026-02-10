@@ -6,7 +6,7 @@ from google.genai import types
 from shared.callbacks import display_agent_state, display_tool_state
 from shared.model import get_model
 from ...constants import Field
-from ...tools import append_to_state_tool, save_as_artifact_tool
+from ...tools import append_to_state_tool, save_markdown_content_as_artifact_tool
 
 model = get_model()
 
@@ -20,7 +20,7 @@ technical_writer = Agent(
 
     INSTRUCTIONS:
     - Review the {Field.ARCHITECTURE_SOLUTION} and create a well-structured Solution Architecture Document summarizing the architecture design.
-    - Use 'save_as_artifact_tool' to create a new Markdown file with the following arguments:
+    - Use 'save_markdown_content_as_artifact_tool' to create a new Markdown file with the following arguments:
         - For a filename, use this naming convention:
             - {{timestamp}}__[{Field.PROBLEM_FILENAME} with safe characters]__[document title with safe characters].md
             - Example: 202602092022__filename-txt__patient-data-pipeline.md
@@ -30,7 +30,7 @@ technical_writer = Agent(
     {{ {Field.ARCHITECTURE_SOLUTION} }}
     """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
-    tools=[save_as_artifact_tool],
+    tools=[save_markdown_content_as_artifact_tool],
     before_tool_callback=display_tool_state,
     before_agent_callback=display_agent_state,
 )

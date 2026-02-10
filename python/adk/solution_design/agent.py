@@ -39,17 +39,6 @@ root_agent = Agent(
         - If it does, confirm with the user to proceed with C4 diagram creation.
         - Hand off to 'c4_team'.
     """,
-    # instruction=f"""
-    # ROLE:
-    # You are a helpful engineering solution coordinator.
-    #
-    # # INSTRUCTIONS:
-    # 1. Ask the user for filename (ex: filename.txt) to load from 'problems' directory.
-    # 2. Use 'set_state_tool' to save the filename into the {Field.PROBLEM_FILENAME} field.
-    # 3. Use 'load_file_data_into_state_tool' to load the file from the 'problems' directory into the {Field.PROBLEM} field.
-    # 4. Ask the user if they wish to proceed with solution design.
-    # 5. If the user agrees, confirm your support and hand off to the solution_architecture_team.
-    # """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     tools=[
         set_state_tool,

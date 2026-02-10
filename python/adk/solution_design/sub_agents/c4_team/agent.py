@@ -230,21 +230,3 @@ c4_team = SequentialAgent(
         c4_diagram_generator_team,
     ],
 )
-
-# def inject_state(callback_context: CallbackContext) -> Optional[Content]:
-#     callback_context.state.update({
-#         "architecture_solution":  Path("../../data/proposed_solutions/2024-07-30__1__shared-enterprise-platform-architecture.md").read_text(),
-#     })
-#
-# root_agent = Agent(
-#     name="root_agent",
-#     model=model,
-#     description="Orchestrator.",
-#     instruction=f"""
-#     1. Handoff to 'c4_team' to proceed.
-#     """,
-#     generate_content_config=types.GenerateContentConfig(temperature=0),
-#     sub_agents=[c4_team],
-#     before_agent_callback=inject_state, # TODO temp hack to inject state without a tool. Replace with a proper tool in the future.
-#
-# )
