@@ -3,7 +3,7 @@
 Are you struggling to keep your job? Want to impress your boss and appear marginally more competent?
 You are in the right place!
 
-"Keep My Job" is an app that uses AI multi-agent systems to help us to work faster and get more done.
+"Keep My Job" is an app that uses AI multi-agent systems to help you to work faster and get more done.
 
 ## Solution Design Agents
 
@@ -14,9 +14,16 @@ generates C4 system context and container diagrams... all while I take a nap.
 
 ## Getting Started
 
-### Setup Model
+### STEP 1: INSTALL PYTHON DEPENDENCIES
 
-#### Option: Gemini
+```shell
+cd python/
+pip install -r requirements.txt
+```
+
+### STEP 2: SETUP MODEL
+
+#### Using Gemini in Vertex AI
 
 - Log in to Google Cloud:
 
@@ -24,9 +31,14 @@ generates C4 system context and container diagrams... all while I take a nap.
 gcloud auth login && gcloud auth application-default login
 ```
 
-- In `python/adk/`, rename `.env.gemini.sample` to `.env` and replace `[PROJECT_ID]` with your GCP project ID.
+- Create an .env file.
+```shell
+cp adk/.env.gemini.sample adk/.env
 
-#### Option: Ollama
+# replace `[PROJECT_ID]` in .env with your GCP project ID.
+```
+
+#### Using Ollama-Hosted Local Model
 
 - Install and restart Ollama service:
 
@@ -41,22 +53,26 @@ brew services restart ollama
 ollama pull qwen3:8b
 ```
 
-- In `python/adk/`, rename `.env.ollama.sample` to `.env`.
+- Create an .env file.
+```shell
+cp adk/.env.ollama.sample adk/.env
 
-### Web UI
+# Update MODEL in .env accordingly
+```
 
-- Run the agents:
+### STEP 3: RUN THE BAD BOY
 
 ```shell
 cd python/adk/
-adk web --reload_agents
+adk web
 ```
 
-## Helpful Links
+- Navigate to http://127.0.0.1:8000 and run the agent.
 
-- [Developer’s guide to multi-agent patterns in ADK](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/)
+### STEP 4: ????
 
-- test
-<video src="https://media.tenor.com/8JRZusnGbckAAAPo/panda-destruction.mp4" autoplay loop controls></video>
-- test 2
+- ...
 
+### Step 5: PROFIT!
+
+![panda-destruction.gif](doc/panda-destruction.gif)
