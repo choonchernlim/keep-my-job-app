@@ -52,3 +52,27 @@ def display_tool_state(
 
 def display_agent_state(callback_context: CallbackContext) -> Optional[Content]:
     display_state(callback_context, "\033[94m", "Agent", callback_context.agent_name)
+
+def set_agent_state(data: Dict[str, Any]) -> Any:
+    """
+    Sets the agent state with the provided data. If any of the values in the data dictionary are callables
+    (like functions), they will be executed to get their return value before updating the state.
+    This allows for dynamic values (e.g., current timestamp) to be set in the state at the time of execution.
+
+    :param data: Data to set in the agent state. Values can be static or callables that return the value when executed.
+    :return: Agent callback function
+    """
+    async def callback(callback_context: CallbackContext) -> Optional[Content]:
+        # We iterate to check for callables (like datetime.now) to ensure
+        # the values are fresh for this specific execution
+        resolved_data = {}
+        for k, v in data.items():
+            if callable(v):
+                resolved_data[k] = v()  # Execute the function (e.g. get current time)
+            else:
+                resolved_data[k] = v  # Use static value
+
+        # Update the state
+        callback_context.state.update(resolved_data)
+
+    return callback

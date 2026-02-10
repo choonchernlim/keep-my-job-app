@@ -1,14 +1,11 @@
 import logging
 from datetime import datetime
-from typing import Optional
 
 from dotenv import load_dotenv
 from google.adk import Agent
-from google.adk.agents.callback_context import CallbackContext
 from google.genai import types
-from google.genai.types import Content
 
-from shared.callbacks import display_agent_state
+from shared.callbacks import display_agent_state, set_agent_state
 from shared.model import get_model
 from .constants import Field
 from .sub_agents.solution_architecture_team import solution_architecture_team
@@ -19,13 +16,6 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 model = get_model()
-
-
-def inject_state(callback_context: CallbackContext) -> Optional[Content]:
-    callback_context.state.update({
-        "timestamp": datetime.now().strftime('%Y%m%d%H%M'),
-    })
-
 
 root_agent = Agent(
     name="root_agent",
@@ -48,6 +38,8 @@ root_agent = Agent(
         load_file_data_into_state_tool,
     ],
     sub_agents=[solution_architecture_team],
-    before_agent_callback=inject_state,
+    before_agent_callback=set_agent_state({
+        Field.TIMESTAMP: lambda: datetime.now().strftime('%Y%m%d%H%M'),
+    }),
     after_agent_callback=display_agent_state,
 )
