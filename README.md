@@ -7,9 +7,22 @@ You are in the right place!
 
 ## Demo
 
-[![Agentic AI with Google ADK](https://img.youtube.com/vi/Toh2HwAzqHc/maxresdefault.jpg)](https://www.youtube.com/watch?v=Toh2HwAzqHc)
+Watch this 2-minute demo of the app in action.
 
-## High-Level Architecture
+[![Agentic AI with Google ADK](doc/youtube.jpg)](https://www.youtube.com/watch?v=Toh2HwAzqHc "Agentic AI with Google ADK")
+
+## 50,000-Foot Architecture
+
+```mermaid
+graph TD;
+    RA[Root Agent]-->SA["Solution Architecture Agent(s)"];
+    RA[Root Agent]-->C4["C4 Agent(s)"];
+    SA-->LT([Local Tools]);
+    C4-->LT(Local Tools);
+    C4-->MCPT(Mermaid MCP Tool);
+```
+
+## 10,000-Foot Architecture
 
 These agents work together to propose the best solution architecture for a given problem statement and
 generates C4 system context and container diagrams.
