@@ -20,7 +20,7 @@ Watch this 2-minute demo of the app in action.
 ```mermaid
 flowchart TD
     B:::userClass@{ shape: processes, label: "fa:fa-user Boss" }
-    U["fa:fa-user User"]:::userClass
+    U["fa:fa-user Employee"]:::userClass
     AR["fa:fa-robot Root Agent"]:::agentClass
     AS:::agentClass@{ shape: processes, label: "fa:fa-robot Solution Architecture Agent" }
     AC:::agentClass@{ shape: processes, label: "fa:fa-robot C4 Agent" }
