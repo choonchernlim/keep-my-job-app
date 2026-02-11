@@ -43,8 +43,8 @@ flowchart TD
     e4@{ animate: true }
 
     classDef userClass fill:#FFFFFF,stroke:#666666,color:#666666
-    classDef agentClass fill:lightblue,stroke:blue,color:#666666
-    classDef toolClass fill:lightgreen,stroke:green,color:#666666
+    classDef toolClass fill:lightblue,stroke:blue,color:#666666
+    classDef agentClass fill:lightgreen,stroke:green,color:#666666
     classDef artifactClass fill:#CCCCCC,stroke:#666666,color:#666666
 ```
 
