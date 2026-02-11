@@ -27,6 +27,7 @@ graph TD
     C4 --> MCPT(Mermaid MCP Tool);
     C4 --> C4D[(1 x C4 System Context Diagram\n2 x C4 Container Diagrams)];
 
+    A@{ shape: processes, label: "Multiple processes" }
     A e1@==> B
     e1@{ animate: true }
 ```
