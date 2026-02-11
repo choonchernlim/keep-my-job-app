@@ -19,6 +19,7 @@ Watch this 2-minute demo of the app in action.
 
 ```mermaid
 flowchart TD
+    B:::userClass@{ shape: processes, label: "fa:fa-user Boss" }
     U["fa:fa-user User"]:::userClass
     AR["fa:fa-robot Root Agent"]:::agentClass
     AS:::agentClass@{ shape: processes, label: "fa:fa-robot Solution Architecture Agent" }
@@ -27,7 +28,9 @@ flowchart TD
     DD:::artifactClass@{ shape: lin-cyl, label: "fa:fa-file 1 x C4 Context Diagram \n 2 x C4 Container Diagrams" }
     TL:::toolClass@{ shape: processes, label: "fa:fa-hammer Local Tool" }
     TM("fa:fa-hammer Mermaid MCP Tool"):::toolClass
-    
+
+    U--impresses-->B
+    B--gives job back-->U
     U-->AR
     AR e1@--> AS
     AR e2@--> AC
