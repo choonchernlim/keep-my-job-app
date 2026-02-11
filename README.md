@@ -15,7 +15,7 @@ Watch this 2-minute demo of the app in action.
 
 [![Agentic AI with Google ADK](doc/youtube.jpg)](https://www.youtube.com/watch?v=Toh2HwAzqHc "Agentic AI with Google ADK")
 
-## 10,000-Foot Architecture
+## 10,000-Foot View
 
 ```mermaid
 flowchart TD
@@ -52,11 +52,11 @@ flowchart TD
     classDef artifactClass fill:#CCCCCC,stroke:#666666,color:#666666
 ```
 
-## 5,000-Foot Architecture
+## 5,000-Foot View
 
 ![diagram.svg](doc/diagram.svg)
 
-## Getting Started
+## 1,000-Foot View
 
 ### STEP 1: INSTALL PYTHON DEPENDENCIES
 
