@@ -34,11 +34,11 @@ flowchart TD
     U e0@-->AR
     AR e1@--> AS
     AR e2@--> AC
-    AS e3@--writes to--> DM
+    AS e3@--writes--> DM
     AS --uses--> TL
     AC --uses--> TL
     AC --uses--> TM
-    AC e4@--writes to--> DD
+    AC e4@--writes--> DD
 
     e0@{ animate: true }
     e1@{ animate: true }
