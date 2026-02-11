@@ -41,11 +41,11 @@ flowchart TD
     e2@{ animate: true }
     e3@{ animate: true }
     e4@{ animate: true }
-    
-    classDef userClass fill:#FFFFFF,stroke:#666666
-    classDef agentClass fill:lightblue,stroke:blue
-    classDef toolClass fill:lightgreen,stroke:green
-    classDef artifactClass fill:#CCCCCC,stroke:#666666
+
+    classDef userClass fill:#FFFFFF,stroke:#666666,color:#666666
+    classDef agentClass fill:lightblue,stroke:blue,color:#666666
+    classDef toolClass fill:lightgreen,stroke:green,color:#666666
+    classDef artifactClass fill:#CCCCCC,stroke:#666666,color:#666666
 ```
 
 ## 5,000-Foot Architecture
