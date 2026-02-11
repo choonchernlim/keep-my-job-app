@@ -31,7 +31,7 @@ flowchart TD
 
     U--impresses-->B
     B--gives job back-->U
-    U e0@-->AR
+    U e0@--interacts-->AR
     AR e1@--> AS
     AR e2@--> AC
     AS e3@--writes--> DM
