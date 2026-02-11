@@ -1,0 +1,4 @@
+google-adk[extensions]
+markdown
+litellm
+-e .

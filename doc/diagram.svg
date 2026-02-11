@@ -1,0 +1,279 @@
+<svg width="1276pt" height="602pt" viewBox="0.00 0.00 1276.00 602.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 598)">
+        <polygon fill="#ffffff" stroke="none" points="-4,4 -4,-598 1271.97,-598 1271.97,4 -4,4"/>
+        <g id="clust1" class="cluster">
+            <title>cluster_solution_architecture_team (Sequential Agent)</title>
+            <path fill="none" stroke="#666666" d="M463.98,-8C463.98,-8 1216.1,-8 1216.1,-8 1222.1,-8 1228.1,-14 1228.1,-20 1228.1,-20 1228.1,-212 1228.1,-212 1228.1,-218 1222.1,-224 1216.1,-224 1216.1,-224 463.98,-224 463.98,-224 457.98,-224 451.98,-218 451.98,-212 451.98,-212 451.98,-20 451.98,-20 451.98,-14 457.98,-8 463.98,-8"/>
+            <text xml:space="preserve" text-anchor="middle" x="840.04" y="-207.4" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">solution_architecture_team (Sequential Agent)</text>
+        </g>
+        <g id="clust2" class="cluster">
+            <title>cluster_solutioning_room (Loop Agent)</title>
+            <path fill="none" stroke="#666666" d="M471.98,-60C471.98,-60 1208.1,-60 1208.1,-60 1214.1,-60 1220.1,-66 1220.1,-72 1220.1,-72 1220.1,-179 1220.1,-179 1220.1,-185 1214.1,-191 1208.1,-191 1208.1,-191 471.98,-191 471.98,-191 465.98,-191 459.98,-185 459.98,-179 459.98,-179 459.98,-72 459.98,-72 459.98,-66 465.98,-60 471.98,-60"/>
+            <text xml:space="preserve" text-anchor="middle" x="840.04" y="-174.4" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">solutioning_room (Loop Agent)</text>
+        </g>
+        <g id="clust4" class="cluster">
+            <title>cluster_c4_team (Sequential Agent)</title>
+            <path fill="none" stroke="#666666" d="M181.95,-316C181.95,-316 1247.97,-316 1247.97,-316 1253.97,-316 1259.97,-322 1259.97,-328 1259.97,-328 1259.97,-574 1259.97,-574 1259.97,-580 1253.97,-586 1247.97,-586 1247.97,-586 181.95,-586 181.95,-586 175.95,-586 169.95,-580 169.95,-574 169.95,-574 169.95,-328 169.95,-328 169.95,-322 175.95,-316 181.95,-316"/>
+            <text xml:space="preserve" text-anchor="middle" x="714.96" y="-569.4" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">c4_team (Sequential Agent)</text>
+        </g>
+        <g id="clust5" class="cluster">
+            <title>cluster_c4_diagram_generator_team (Loop Agent)</title>
+            <path fill="none" stroke="#666666" d="M210.9,-368C210.9,-368 1239.97,-368 1239.97,-368 1245.97,-368 1251.97,-374 1251.97,-380 1251.97,-380 1251.97,-541 1251.97,-541 1251.97,-547 1245.97,-553 1239.97,-553 1239.97,-553 210.9,-553 210.9,-553 204.9,-553 198.9,-547 198.9,-541 198.9,-541 198.9,-380 198.9,-380 198.9,-374 204.9,-368 210.9,-368"/>
+            <text xml:space="preserve" text-anchor="middle" x="725.44" y="-536.4" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">c4_diagram_generator_team (Loop Agent)</text>
+        </g>
+        <!-- root_agent -->
+        <g id="node1" class="node">
+            <title>root_agent</title>
+            <ellipse fill="lightgreen" stroke="green" cx="64.4" cy="-228" rx="64.4" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="64.4" y="-223.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 root_agent</text>
+        </g>
+        <!-- solutioning_room -->
+        <g id="node2" class="node">
+            <title>solutioning_room</title>
+            <ellipse fill="#cccccc" stroke="#666666" cx="280.96" cy="-47" rx="79.71" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-42.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">solutioning_room</text>
+        </g>
+        <!-- root_agent&#45;&gt;solutioning_room -->
+        <g id="edge1" class="edge">
+            <title>root_agent-&gt;solutioning_room</title>
+            <path fill="none" stroke="#666666" d="M73.43,-210.14C87.65,-180.4 120.07,-120.7 164.81,-87 178.54,-76.66 195.14,-68.86 211.42,-63.02"/>
+            <polygon fill="#666666" stroke="#666666" points="212.23,-66.44 220.6,-59.94 210.01,-59.8 212.23,-66.44"/>
+        </g>
+        <!-- c4_content_analyzer -->
+        <g id="node10" class="node">
+            <title>c4_content_analyzer</title>
+            <ellipse fill="lightgreen" stroke="green" cx="280.96" cy="-342" rx="103" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-337.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 c4_content_analyzer</text>
+        </g>
+        <!-- root_agent&#45;&gt;c4_content_analyzer -->
+        <g id="edge9" class="edge">
+            <title>root_agent-&gt;c4_content_analyzer</title>
+            <path fill="none" stroke="#666666" d="M94.91,-244.2C114.65,-255 141.23,-269.45 164.81,-282 188.32,-294.51 214.66,-308.26 236.21,-319.43"/>
+            <polygon fill="#666666" stroke="#666666" points="234.54,-322.51 245.03,-324 237.76,-316.29 234.54,-322.51"/>
+        </g>
+        <!-- set_state_tool -->
+        <g id="node21" class="node">
+            <title>set_state_tool</title>
+            <path fill="lightblue" stroke="blue" d="M324.2,-273C324.2,-273 237.72,-273 237.72,-273 231.72,-273 225.72,-267 225.72,-261 225.72,-261 225.72,-249 225.72,-249 225.72,-243 231.72,-237 237.72,-237 237.72,-237 324.2,-237 324.2,-237 330.2,-237 336.2,-243 336.2,-249 336.2,-249 336.2,-261 336.2,-261 336.2,-267 330.2,-273 324.2,-273"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-250.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 set_state_tool</text>
+        </g>
+        <!-- root_agent&#45;&gt;set_state_tool -->
+        <g id="edge21" class="edge">
+            <title>root_agent-&gt;set_state_tool</title>
+            <path fill="none" stroke="#666666" d="M123.75,-235.34C155.39,-239.32 194.26,-244.22 225.31,-248.12"/>
+        </g>
+        <!-- load_file_data_into_state_tool -->
+        <g id="node22" class="node">
+            <title>load_file_data_into_state_tool</title>
+            <path fill="lightblue" stroke="blue" d="M370.85,-219C370.85,-219 191.06,-219 191.06,-219 185.06,-219 179.06,-213 179.06,-207 179.06,-207 179.06,-195 179.06,-195 179.06,-189 185.06,-183 191.06,-183 191.06,-183 370.85,-183 370.85,-183 376.85,-183 382.85,-189 382.85,-195 382.85,-195 382.85,-207 382.85,-207 382.85,-213 376.85,-219 370.85,-219"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-196.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 load_file_data_into_state_tool</text>
+        </g>
+        <!-- root_agent&#45;&gt;load_file_data_into_state_tool -->
+        <g id="edge22" class="edge">
+            <title>root_agent-&gt;load_file_data_into_state_tool</title>
+            <path fill="none" stroke="#666666" d="M123.75,-220.66C140.75,-218.52 159.84,-216.12 178.68,-213.75"/>
+        </g>
+        <!-- technical_writer -->
+        <g id="node3" class="node">
+            <title>technical_writer</title>
+            <ellipse fill="lightgreen" stroke="green" cx="560.27" cy="-34" rx="85.84" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-29.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 technical_writer</text>
+        </g>
+        <!-- solutioning_room&#45;&gt;technical_writer -->
+        <g id="edge2" class="edge">
+            <title>solutioning_room-&gt;technical_writer</title>
+            <path fill="none" stroke="#666666" d="M359.57,-43.36C392.25,-41.83 430.58,-40.03 464.88,-38.43"/>
+            <polygon fill="#666666" stroke="#666666" points="465,-41.92 474.83,-37.96 464.68,-34.93 465,-41.92"/>
+        </g>
+        <!-- save_markdown_content_as_artifact_tool -->
+        <g id="node8" class="node">
+            <title>save_markdown_content_as_artifact_tool</title>
+            <path fill="lightblue" stroke="blue" d="M978.97,-52C978.97,-52 735.44,-52 735.44,-52 729.44,-52 723.44,-46 723.44,-40 723.44,-40 723.44,-28 723.44,-28 723.44,-22 729.44,-16 735.44,-16 735.44,-16 978.97,-16 978.97,-16 984.97,-16 990.97,-22 990.97,-28 990.97,-28 990.97,-40 990.97,-40 990.97,-46 984.97,-52 978.97,-52"/>
+            <text xml:space="preserve" text-anchor="middle" x="857.2" y="-29.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 save_markdown_content_as_artifact_tool</text>
+        </g>
+        <!-- technical_writer&#45;&gt;save_markdown_content_as_artifact_tool -->
+        <g id="edge7" class="edge">
+            <title>technical_writer-&gt;save_markdown_content_as_artifact_tool</title>
+            <path fill="none" stroke="#666666" d="M646.58,-34C670.48,-34 697.05,-34 723.02,-34"/>
+        </g>
+        <!-- solution_architect -->
+        <g id="node4" class="node">
+            <title>solution_architect</title>
+            <ellipse fill="lightgreen" stroke="green" cx="560.27" cy="-114" rx="92.3" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-109.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 solution_architect</text>
+        </g>
+        <!-- architectural_review_board -->
+        <g id="node5" class="node">
+            <title>architectural_review_board</title>
+            <ellipse fill="lightgreen" stroke="green" cx="857.2" cy="-114" rx="129.28" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="857.2" y="-109.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 architectural_review_board</text>
+        </g>
+        <!-- solution_architect&#45;&gt;architectural_review_board -->
+        <g id="edge3" class="edge">
+            <title>solution_architect-&gt;architectural_review_board</title>
+            <path fill="none" stroke="#666666" d="M647.37,-107.8C671.7,-107.34 698.73,-107.17 725.06,-107.29"/>
+            <polygon fill="#666666" stroke="#666666" points="724.76,-110.79 734.78,-107.35 724.81,-103.79 724.76,-110.79"/>
+        </g>
+        <!-- architectural_review_board&#45;&gt;solution_architect -->
+        <g id="edge4" class="edge">
+            <title>architectural_review_board-&gt;solution_architect</title>
+            <path fill="none" stroke="#666666" d="M736.3,-120.64C710.47,-120.84 683.47,-120.76 658.62,-120.39"/>
+            <polygon fill="#666666" stroke="#666666" points="658.94,-116.9 648.89,-120.23 658.83,-123.89 658.94,-116.9"/>
+        </g>
+        <!-- append_to_state_tool -->
+        <g id="node6" class="node">
+            <title>append_to_state_tool</title>
+            <path fill="lightblue" stroke="blue" d="M1200.1,-104C1200.1,-104 1070.84,-104 1070.84,-104 1064.84,-104 1058.84,-98 1058.84,-92 1058.84,-92 1058.84,-80 1058.84,-80 1058.84,-74 1064.84,-68 1070.84,-68 1070.84,-68 1200.1,-68 1200.1,-68 1206.1,-68 1212.1,-74 1212.1,-80 1212.1,-80 1212.1,-92 1212.1,-92 1212.1,-98 1206.1,-104 1200.1,-104"/>
+            <text xml:space="preserve" text-anchor="middle" x="1135.47" y="-81.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 append_to_state_tool</text>
+        </g>
+        <!-- architectural_review_board&#45;&gt;append_to_state_tool -->
+        <g id="edge5" class="edge">
+            <title>architectural_review_board-&gt;append_to_state_tool</title>
+            <path fill="none" stroke="#666666" d="M963.04,-103.37C994.79,-100.16 1029.04,-96.69 1058.51,-93.7"/>
+        </g>
+        <!-- exit_loop -->
+        <g id="node7" class="node">
+            <title>exit_loop</title>
+            <path fill="lightblue" stroke="blue" d="M1166.66,-158C1166.66,-158 1104.28,-158 1104.28,-158 1098.28,-158 1092.28,-152 1092.28,-146 1092.28,-146 1092.28,-134 1092.28,-134 1092.28,-128 1098.28,-122 1104.28,-122 1104.28,-122 1166.66,-122 1166.66,-122 1172.66,-122 1178.66,-128 1178.66,-134 1178.66,-134 1178.66,-146 1178.66,-146 1178.66,-152 1172.66,-158 1166.66,-158"/>
+            <text xml:space="preserve" text-anchor="middle" x="1135.47" y="-135.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 exit_loop</text>
+        </g>
+        <!-- architectural_review_board&#45;&gt;exit_loop -->
+        <g id="edge6" class="edge">
+            <title>architectural_review_board-&gt;exit_loop</title>
+            <path fill="none" stroke="#666666" d="M965.81,-124.13C1009.9,-128.28 1058.35,-132.84 1091.97,-136"/>
+        </g>
+        <!-- solution_architecture_team -->
+        <g id="node9" class="node">
+            <title>solution_architecture_team</title>
+            <ellipse fill="#cccccc" stroke="#666666" cx="280.96" cy="-114" rx="116.15" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-109.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">solution_architecture_team</text>
+        </g>
+        <!-- solution_architecture_team&#45;&gt;solution_architect -->
+        <g id="edge8" class="edge">
+            <title>solution_architecture_team-&gt;solution_architect</title>
+            <path fill="none" stroke="#666666" d="M397.56,-114C416.97,-114 437,-114 456.08,-114"/>
+            <polygon fill="#666666" stroke="#666666" points="455.99,-117.5 465.99,-114 455.99,-110.5 455.99,-117.5"/>
+        </g>
+        <!-- c4_diagram_generator_team -->
+        <g id="node11" class="node">
+            <title>c4_diagram_generator_team</title>
+            <ellipse fill="#cccccc" stroke="#666666" cx="560.27" cy="-250" rx="121.5" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-245.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">c4_diagram_generator_team</text>
+        </g>
+        <!-- c4_content_analyzer&#45;&gt;c4_diagram_generator_team -->
+        <g id="edge10" class="edge">
+            <title>c4_content_analyzer-&gt;c4_diagram_generator_team</title>
+            <path fill="none" stroke="#666666" d="M320.6,-325.05C350.84,-312.18 394.16,-294.61 433.11,-282 448.57,-276.99 465.3,-272.28 481.36,-268.08"/>
+            <polygon fill="#666666" stroke="#666666" points="482.07,-271.51 490.89,-265.64 480.33,-264.73 482.07,-271.51"/>
+        </g>
+        <!-- save_new_c4_request_tool -->
+        <g id="node12" class="node">
+            <title>save_new_c4_request_tool</title>
+            <path fill="lightblue" stroke="blue" d="M640.83,-360C640.83,-360 479.71,-360 479.71,-360 473.71,-360 467.71,-354 467.71,-348 467.71,-348 467.71,-336 467.71,-336 467.71,-330 473.71,-324 479.71,-324 479.71,-324 640.83,-324 640.83,-324 646.83,-324 652.83,-330 652.83,-336 652.83,-336 652.83,-348 652.83,-348 652.83,-354 646.83,-360 640.83,-360"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-337.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 save_new_c4_request_tool</text>
+        </g>
+        <!-- c4_content_analyzer&#45;&gt;save_new_c4_request_tool -->
+        <g id="edge11" class="edge">
+            <title>c4_content_analyzer-&gt;save_new_c4_request_tool</title>
+            <path fill="none" stroke="#666666" d="M384.43,-342C411.59,-342 440.73,-342 467.29,-342"/>
+        </g>
+        <!-- c4_processor -->
+        <g id="node13" class="node">
+            <title>c4_processor</title>
+            <ellipse fill="lightgreen" stroke="green" cx="280.96" cy="-414" rx="74.06" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="280.96" y="-409.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 c4_processor</text>
+        </g>
+        <!-- c4_processor&#45;&gt;exit_loop -->
+        <g id="edge16" class="edge">
+            <title>c4_processor-&gt;exit_loop</title>
+            <path fill="none" stroke="#666666" d="M365.44,-408C376.88,-404.44 387.85,-399.31 397.11,-392 427.71,-367.84 401.89,-335.36 433.11,-312 524.47,-243.65 576.01,-301.57 687.44,-277 838.84,-243.61 1013.16,-183.78 1091.93,-155.55"/>
+            <polygon fill="#666666" stroke="#666666" points="364.6,-404.6 355.85,-410.56 366.41,-411.36 364.6,-404.6"/>
+        </g>
+        <!-- c4_syntax -->
+        <g id="node14" class="node">
+            <title>c4_syntax</title>
+            <ellipse fill="lightgreen" stroke="green" cx="560.27" cy="-470" rx="62.26" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-465.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 c4_syntax</text>
+        </g>
+        <!-- c4_processor&#45;&gt;c4_syntax -->
+        <g id="edge12" class="edge">
+            <title>c4_processor-&gt;c4_syntax</title>
+            <path fill="none" stroke="#666666" d="M339.08,-425.54C385.17,-434.84 449.91,-447.91 497.26,-457.48"/>
+            <polygon fill="#666666" stroke="#666666" points="496.31,-460.86 506.81,-459.4 497.7,-453.99 496.31,-460.86"/>
+        </g>
+        <!-- get_next_unprocessed_c4_request_tool -->
+        <g id="node16" class="node">
+            <title>get_next_unprocessed_c4_request_tool</title>
+            <path fill="lightblue" stroke="blue" d="M675.44,-414C675.44,-414 445.11,-414 445.11,-414 439.11,-414 433.11,-408 433.11,-402 433.11,-402 433.11,-390 433.11,-390 433.11,-384 439.11,-378 445.11,-378 445.11,-378 675.44,-378 675.44,-378 681.44,-378 687.44,-384 687.44,-390 687.44,-390 687.44,-402 687.44,-402 687.44,-408 681.44,-414 675.44,-414"/>
+            <text xml:space="preserve" text-anchor="middle" x="560.27" y="-391.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 get_next_unprocessed_c4_request_tool</text>
+        </g>
+        <!-- c4_processor&#45;&gt;get_next_unprocessed_c4_request_tool -->
+        <g id="edge15" class="edge">
+            <title>c4_processor-&gt;get_next_unprocessed_c4_request_tool</title>
+            <path fill="none" stroke="#666666" d="M353.01,-409.39C377.33,-407.81 405.31,-405.99 432.66,-404.22"/>
+        </g>
+        <!-- c4_writer -->
+        <g id="node15" class="node">
+            <title>c4_writer</title>
+            <ellipse fill="lightgreen" stroke="green" cx="857.2" cy="-448" rx="60.11" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="857.2" y="-443.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🤖 c4_writer</text>
+        </g>
+        <!-- c4_syntax&#45;&gt;c4_writer -->
+        <g id="edge13" class="edge">
+            <title>c4_syntax-&gt;c4_writer</title>
+            <path fill="none" stroke="#666666" d="M620.96,-465.55C668.97,-461.97 736.52,-456.93 786.92,-453.17"/>
+            <polygon fill="#666666" stroke="#666666" points="787.15,-456.66 796.86,-452.43 786.63,-449.68 787.15,-456.66"/>
+        </g>
+        <!-- c4_writer&#45;&gt;c4_processor -->
+        <g id="edge14" class="edge">
+            <title>c4_writer-&gt;c4_processor</title>
+            <path fill="none" stroke="#666666" d="M797.69,-444.55C716.04,-439.74 563.3,-430.72 433.11,-423 410.99,-421.69 387.04,-420.26 364.88,-418.94"/>
+            <polygon fill="#666666" stroke="#666666" points="365.17,-415.46 354.98,-418.35 364.75,-422.44 365.17,-415.46"/>
+        </g>
+        <!-- generate -->
+        <g id="node17" class="node">
+            <title>generate</title>
+            <path fill="lightblue" stroke="blue" d="M1163.92,-520C1163.92,-520 1107.02,-520 1107.02,-520 1101.02,-520 1095.02,-514 1095.02,-508 1095.02,-508 1095.02,-496 1095.02,-496 1095.02,-490 1101.02,-484 1107.02,-484 1107.02,-484 1163.92,-484 1163.92,-484 1169.92,-484 1175.92,-490 1175.92,-496 1175.92,-496 1175.92,-508 1175.92,-508 1175.92,-514 1169.92,-520 1163.92,-520"/>
+            <text xml:space="preserve" text-anchor="middle" x="1135.47" y="-497.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 generate</text>
+        </g>
+        <!-- c4_writer&#45;&gt;generate -->
+        <g id="edge17" class="edge">
+            <title>c4_writer-&gt;generate</title>
+            <path fill="none" stroke="#666666" d="M908.23,-457.78C961.72,-468.23 1045.46,-484.6 1094.66,-494.22"/>
+        </g>
+        <!-- save_png_file_as_artifact_tool -->
+        <g id="node18" class="node">
+            <title>save_png_file_as_artifact_tool</title>
+            <path fill="lightblue" stroke="blue" d="M1226.52,-412C1226.52,-412 1044.42,-412 1044.42,-412 1038.42,-412 1032.42,-406 1032.42,-400 1032.42,-400 1032.42,-388 1032.42,-388 1032.42,-382 1038.42,-376 1044.42,-376 1044.42,-376 1226.52,-376 1226.52,-376 1232.52,-376 1238.52,-382 1238.52,-388 1238.52,-388 1238.52,-400 1238.52,-400 1238.52,-406 1232.52,-412 1226.52,-412"/>
+            <text xml:space="preserve" text-anchor="middle" x="1135.47" y="-389.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 save_png_file_as_artifact_tool</text>
+        </g>
+        <!-- c4_writer&#45;&gt;save_png_file_as_artifact_tool -->
+        <g id="edge18" class="edge">
+            <title>c4_writer-&gt;save_png_file_as_artifact_tool</title>
+            <path fill="none" stroke="#666666" d="M908.23,-438.22C944.85,-431.06 995.65,-421.13 1039.83,-412.5"/>
+        </g>
+        <!-- save_processed_c4_request_tool -->
+        <g id="node19" class="node">
+            <title>save_processed_c4_request_tool</title>
+            <path fill="lightblue" stroke="blue" d="M1231.97,-466C1231.97,-466 1038.97,-466 1038.97,-466 1032.97,-466 1026.97,-460 1026.97,-454 1026.97,-454 1026.97,-442 1026.97,-442 1026.97,-436 1032.97,-430 1038.97,-430 1038.97,-430 1231.97,-430 1231.97,-430 1237.97,-430 1243.97,-436 1243.97,-442 1243.97,-442 1243.97,-454 1243.97,-454 1243.97,-460 1237.97,-466 1231.97,-466"/>
+            <text xml:space="preserve" text-anchor="middle" x="1135.47" y="-443.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">🔧 save_processed_c4_request_tool</text>
+        </g>
+        <!-- c4_writer&#45;&gt;save_processed_c4_request_tool -->
+        <g id="edge19" class="edge">
+            <title>c4_writer-&gt;save_processed_c4_request_tool</title>
+            <path fill="none" stroke="#666666" d="M917.81,-448C949.53,-448 989.53,-448 1026.5,-448"/>
+        </g>
+        <!-- c4_team -->
+        <g id="node20" class="node">
+            <title>c4_team</title>
+            <ellipse fill="#cccccc" stroke="#666666" cx="64.4" cy="-414" rx="43.75" ry="18"/>
+            <text xml:space="preserve" text-anchor="middle" x="64.4" y="-409.8" font-family="Roboto, sans-serif" font-size="14.00" fill="#666666">c4_team</text>
+        </g>
+        <!-- c4_team&#45;&gt;c4_processor -->
+        <g id="edge20" class="edge">
+            <title>c4_team-&gt;c4_processor</title>
+            <path fill="none" stroke="#666666" d="M108.56,-414C133.41,-414 165.51,-414 195.2,-414"/>
+            <polygon fill="#666666" stroke="#666666" points="194.92,-417.5 204.92,-414 194.92,-410.5 194.92,-417.5"/>
+        </g>
+    </g>
+</svg>
