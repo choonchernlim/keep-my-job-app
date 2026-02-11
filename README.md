@@ -1,9 +1,13 @@
 # "Keep My Job" App
 
-Are you struggling to keep your job? Want to impress your boss and appear marginally more competent?
+**Are you struggling to keep your job?** Want to impress your boss and appear marginally more competent?
 You are in the right place!
 
-"Keep My Job" is an app that uses an AI multi-agent system to help you to work faster and get more done.
+**Keep My Job** app is an AI multi-agent system that helps you work faster and get more done—without staring at a blank
+architecture diagram for hours.
+
+Given a problem statement, the agents collaborate to propose an optimal solution architecture and automatically generate
+C4 system context and container diagrams.
 
 ## Demo
 
@@ -11,21 +15,22 @@ Watch this 2-minute demo of the app in action.
 
 [![Agentic AI with Google ADK](doc/youtube.jpg)](https://www.youtube.com/watch?v=Toh2HwAzqHc "Agentic AI with Google ADK")
 
-## 50,000-Foot Architecture
-
-```mermaid
-graph TD;
-    RA[Root Agent]-->SA["Solution Architecture Agent(s)"];
-    RA[Root Agent]-->C4["C4 Agent(s)"];
-    SA-->LT([Local Tools]);
-    C4-->LT(Local Tools);
-    C4-->MCPT(Mermaid MCP Tool);
-```
-
 ## 10,000-Foot Architecture
 
-These agents work together to propose the best solution architecture for a given problem statement and
-generates C4 system context and container diagrams.
+```mermaid
+graph TD
+;
+    RA[Root Agent] --> SA["Solution Architecture Agent(s)"];
+    RA --> C4["C4 Agent(s)"];
+    SA --> MK[(1 x Solution Architecture\nDocument)]
+    SA --> LT([Local Tools])
+    C4 --> LT
+    C4 --> MCPT(Mermaid MCP Tool);
+    C4 --> C4D[(1 x C4 System Context Diagram\n2 x C4 Container Diagrams)]
+
+```
+
+## 5,000-Foot Architecture
 
 ![diagram.svg](doc/diagram.svg)
 
@@ -49,6 +54,7 @@ gcloud auth login && gcloud auth application-default login
 ```
 
 - Create an .env file.
+
 ```shell
 cp adk/.env.gemini.sample adk/.env
 
@@ -71,6 +77,7 @@ ollama pull qwen3:8b
 ```
 
 - Create an .env file.
+
 ```shell
 cp adk/.env.ollama.sample adk/.env
 
@@ -78,6 +85,8 @@ cp adk/.env.ollama.sample adk/.env
 ```
 
 ### STEP 3: RUN THE BAD BOY
+
+- Run the web UI.
 
 ```shell
 cd python/adk/
