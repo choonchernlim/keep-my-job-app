@@ -35,9 +35,9 @@ flowchart TD
     AR e1@--> AS
     AR e2@--> AC
     AS e3@--> DM
-    AS --> TL
-    AC --> TL
-    AC --> TM
+    AS --uses--> TL
+    AC --uses--> TL
+    AC --uses--> TM
     AC e4@--> DD
 
     e0@{ animate: true }
