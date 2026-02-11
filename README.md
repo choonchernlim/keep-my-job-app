@@ -18,18 +18,34 @@ Watch this 2-minute demo of the app in action.
 ## 10,000-Foot Architecture
 
 ```mermaid
-graph TD
-    RA[Root Agent] --> SA["Solution Architecture Agent(s)"];
-    RA --> C4["C4 Agent(s)"];
-    SA --> MK[(1 x Solution Architecture\nDocument)]
-    SA --> LT([Local Tools]);
-    C4 --> LT;
-    C4 --> MCPT(Mermaid MCP Tool);
-    C4 --> C4D[(1 x C4 System Context Diagram\n2 x C4 Container Diagrams)];
-
-    A@{ shape: processes, label: "Multiple processes" }
-    A e1@==> B
+flowchart TD
+    U["fa:fa-user User"]:::userClass
+    AR["fa:fa-robot Root Agent"]:::agentClass
+    AS:::agentClass@{ shape: processes, label: "fa:fa-robot Solution Architecture Agent" }
+    AC:::agentClass@{ shape: processes, label: "fa:fa-robot C4 Agent" }
+    DM:::artifactClass@{ shape: lin-cyl, label: "fa:fa-file 1 x Solution Architecture\nDocument" }
+    DD:::artifactClass@{ shape: lin-cyl, label: "fa:fa-file 1 x C4 Context Diagram \n 2 x C4 Container Diagrams" }
+    TL:::toolClass@{ shape: processes, label: "fa:fa-hammer Local Tool" }
+    TM("fa:fa-hammer Mermaid MCP Tool"):::toolClass
+    
+    U-->AR
+    AR e1@--> AS
+    AR e2@--> AC
+    AS e3@--> DM
+    AS --> TL
+    AC --> TL
+    AC --> TM
+    AC e4@--> DD
+    
     e1@{ animate: true }
+    e2@{ animate: true }
+    e3@{ animate: true }
+    e4@{ animate: true }
+    
+    classDef userClass fill:#FFFFFF,stroke:#666666
+    classDef agentClass fill:lightblue,stroke:blue
+    classDef toolClass fill:lightgreen,stroke:green
+    classDef artifactClass fill:#CCCCCC,stroke:#666666
 ```
 
 ## 5,000-Foot Architecture
