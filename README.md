@@ -19,15 +19,16 @@ Watch this 2-minute demo of the app in action.
 
 ```mermaid
 graph TD
-;
     RA[Root Agent] --> SA["Solution Architecture Agent(s)"];
     RA --> C4["C4 Agent(s)"];
     SA --> MK[(1 x Solution Architecture\nDocument)]
-    SA --> LT([Local Tools])
-    C4 --> LT
+    SA --> LT([Local Tools]);
+    C4 --> LT;
     C4 --> MCPT(Mermaid MCP Tool);
-    C4 --> C4D[(1 x C4 System Context Diagram\n2 x C4 Container Diagrams)]
+    C4 --> C4D[(1 x C4 System Context Diagram\n2 x C4 Container Diagrams)];
 
+    A e1@==> B
+    e1@{ animate: true }
 ```
 
 ## 5,000-Foot Architecture
