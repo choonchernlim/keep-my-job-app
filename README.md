@@ -31,7 +31,7 @@ flowchart TD
 
     U--impresses-->B
     B--gives job back-->U
-    U-->AR
+    U e0@-->AR
     AR e1@--> AS
     AR e2@--> AC
     AS e3@--> DM
@@ -39,7 +39,8 @@ flowchart TD
     AC --> TL
     AC --> TM
     AC e4@--> DD
-    
+
+    e0@{ animate: true }
     e1@{ animate: true }
     e2@{ animate: true }
     e3@{ animate: true }
