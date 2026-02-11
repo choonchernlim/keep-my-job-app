@@ -115,8 +115,8 @@ adk web
 
 ### STEP 4: ????
 
-- ...
+![panda-destruction.gif](doc/panda-destruction.gif)
 
 ### STEP 5: PROFIT!
 
-![panda-destruction.gif](doc/panda-destruction.gif)
+The end.
