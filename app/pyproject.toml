@@ -1,0 +1,21 @@
+[project]
+name = "keep-my-job-app"
+version = "0.1.0"
+description = "Agentic AI with Google ADK"
+readme = "../README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "google-adk[extensions]>=1.25.0",
+    "litellm>=1.80.16",
+    "markdown>=3.10.2",
+    "python-dotenv>=1.2.1",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+exclude = ["adk*"]

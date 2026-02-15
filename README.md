@@ -60,9 +60,13 @@ flowchart TD
 
 ### STEP 1: INSTALL PYTHON DEPENDENCIES
 
+- Install Python dependencies using [uv](https://github.com/astral-sh/uv).
+
 ```shell
-cd python/
-pip install -r requirements.txt
+cd app/
+uv venv
+source .venv/bin/activate
+uv sync
 ```
 
 ### STEP 2: SETUP MODEL
@@ -111,8 +115,8 @@ cp adk/.env.ollama.sample adk/.env
 - Run the web UI.
 
 ```shell
-cd python/adk/
-adk web
+cd app/
+uv run main.py  
 ```
 
 - Navigate to http://127.0.0.1:8000 and run the agent.
@@ -123,4 +127,4 @@ adk web
 
 ### STEP 5: PROFIT!
 
-#winning
+![panda-cute.gif](doc/panda-cute.gif)
