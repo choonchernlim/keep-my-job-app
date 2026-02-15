@@ -61,7 +61,7 @@ flowchart TD
 ### STEP 1: INSTALL PYTHON DEPENDENCIES
 
 ```shell
-cd python/
+cd app/
 pip install -r requirements.txt
 ```
 
@@ -111,7 +111,7 @@ cp adk/.env.ollama.sample adk/.env
 - Run the web UI.
 
 ```shell
-cd python/adk/
+cd app/adk/
 adk web
 ```
 
