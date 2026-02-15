@@ -127,4 +127,4 @@ uv run main.py
 
 ### STEP 5: PROFIT!
 
-#winning
+![panda-cute.gif](doc/panda-cute.gif)
