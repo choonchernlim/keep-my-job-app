@@ -2,7 +2,8 @@ import logging
 import os
 
 from google.adk.models import LiteLlm
-
+from google.adk.models.google_llm import Gemini
+from google.genai.types import HttpRetryOptions
 
 def get_model():
     """
@@ -22,6 +23,16 @@ def get_model():
             extra_body={
                 "think": False,  # thinking is too slow
             }
+        )
+    elif "gemini" in model.lower():
+        model = Gemini(
+            model=model,
+            retry_options=HttpRetryOptions(
+                attempts=10,          # Maximum number of retries
+                initial_delay=2.0,   # Seconds to wait before the first retry
+                exp_base=2.0,        # Exponential backoff multiplier
+                max_delay=60.0       # Maximum wait time between retries
+            )
         )
 
     logging.info(f"Model: {model}")

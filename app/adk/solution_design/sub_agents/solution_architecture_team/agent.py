@@ -50,8 +50,10 @@ architectural_review_board = Agent(
     - You are not here to "rubber-stamp" the design; you are here to identify risks. 
     
     Evaluate the following:
+    - Does the design frame the {Field.PROBLEM}, and provide assumptions appropriately?
     - Does the design solve the actual {Field.PROBLEM}, or has it drifted into over-engineering?
     - Does the design answers all the questions described in {Field.PROBLEM}?
+    - Is the trade-off analysis complete, well-reasoned, prioritized and supported with a mitigation plan? Are there any missing trade-offs that should be documented?
     - Does the architecture inherently protect PHI? Look for gaps in encryption, audit logging, and data residency.
     - Is this solution "day-two" ready? Assess if it’s too complex for a standard SRE team to manage.
     - Does it align with current Well-Architected Frameworks (e.g., GCP best practices)?
@@ -88,6 +90,10 @@ solution_architect = Agent(
     INSTRUCTIONS:
     1. Evaluate the {Field.PROBLEM} alongside any {Field.ARCHITECTURE_SOLUTION} and {Field.CRITICAL_FEEDBACK} to ensure iterative improvement.
     2. Architect a solution strictly adhering to these Guardrails:
+        - The problem framing and assumptions must be clearly stated and reasonable.
+        - Provide depth of reasoning and systems thinking in your design, not just surface-level solutions.
+        - Trade-offs must be explicitly analyzed, documented, and prioritized based on risk and impact, and mitigation plans must be provided.
+        - Writeup must be clear, concise, and structured for a technical audience, avoiding ambiguity.
         - Use GCP managed services and cloud-native patterns for core functional components.
         - Ensure high availability, scalability, security and disaster recovery.
         - Take account of maintainability, operational simplicity, and cost-efficiency.
