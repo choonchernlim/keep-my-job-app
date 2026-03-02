@@ -2,7 +2,6 @@
 name = "keep-my-job-app"
 version = "0.1.0"
 description = "Agentic AI with Google ADK"
-readme = "../README.md"
 requires-python = ">=3.14"
 dependencies = [
     "google-adk[extensions]>=1.25.0",
